@@ -77,8 +77,9 @@ class View extends Connection{
             echo "<td>" . $d['harga_tiket'] . "</td>";
             echo "<td>" . $d['latitude'] . "</td>";
             echo "<td>" . $d['longitude'] . "</td>";
-            echo "<td><a href='edit_data.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-primary'><span class='fas fa-edit'></a></td>";
-            echo "<td><a href='hapus_aksi.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-danger'><span class='fas fa-trash'></a></td>";
+            echo "<td class='col-2'><a href='edit_data.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-primary'><span class='fas fa-edit'></a>
+            <a href='hapus_aksi.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-danger'><span class='fas fa-trash'></a>
+            </td>";
             echo "</tr>";
         }
     }
