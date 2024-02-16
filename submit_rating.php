@@ -1,6 +1,6 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "sig_map4");
+$conn = new mysqli("localhost", "root", "", "db_kost");
 
 // Periksa koneksi
 if ($conn->connect_error) {

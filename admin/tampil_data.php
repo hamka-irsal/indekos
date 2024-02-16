@@ -1,9 +1,14 @@
 <?php
-session_start();
-if ($_SESSION['status'] != "login") {
-    header("location:../tampil_data.php?pesan=belum_login");
+require 'function.php';
+include_once '../koneksi.php';
+$select = new Select();
+
+if(!empty($_SESSION["id"])){
+  $user = $select->selectUserById($_SESSION["id"]);
 }
-include "../koneksi.php";
+else{
+  header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,43 +35,17 @@ include "../koneksi.php";
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>NO</th>
-                                            <th>Nama Indekos</th>
-                                            <th>Alamat</th>
-                                            <th>Harga</th>
-                                            <th>Latitude</th>
-                                            <th>Longitude</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 0;
-                                        $data = mysqli_query($koneksi, "select * from wisata");
-                                        while ($d = mysqli_fetch_array($data)) {
-                                            $no++;
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $no ?></td>
-                                                <td><b><a href="detail_data.php?id_wisata=<?php echo $d['id_wisata']; ?> "> <?php echo $d['nama_wisata']; ?> </a> </b></td>
-                                                <td><?php echo $d['alamat']; ?></td>
-                                                <td>Rp. <?php echo $d['harga_tiket']; ?></td>
-                                                <td><?php echo $d['latitude']; ?></td>
-                                                <td><?php echo $d['longitude']; ?></td>
-                                                <td>
-                                                    <a href="edit_data.php?id_wisata=<?php echo $d['id_wisata']; ?> " class="btn-sm btn-primary"><span class="fas fa-edit"></a>
-                                                    <a href="hapus_aksi.php?id_wisata=<?php echo $d['id_wisata']; ?>" class="btn-sm btn-danger"><span class="fas fa-trash"></a>
-                                                </td>
-                                            </tr>
-                            </div>
-                        <?php
-                                        }
-                        ?>
-                        </tbody>
-                        </table>
+                            <?php
+                                    // Instansiasi class ViewRating
+                                    $view = new View();
+                                    // Tampilkan data rating
+                                    echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
+                                    echo "<thead><tr><th>No</th><th>Nama Indekos</th><th>Alamat</th><th>Harga</th><th>Latitude</th><th>Longitude</th><th>Aksi</th></tr></thead>";
+                                    echo "<tbody>";
+                                    $view->getKost();
+
+                                    echo "</table>";
+                                    ?>
 
                         </div>
                     </div>

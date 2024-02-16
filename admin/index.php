@@ -1,9 +1,14 @@
 <?php
-session_start();
-if ($_SESSION['status'] != "login") {
-    header("location:../tampil_data.php?pesan=belum_login");
+require 'function.php';
+
+$select = new Select();
+
+if(!empty($_SESSION["id"])){
+  $user = $select->selectUserById($_SESSION["id"]);
 }
-include "../koneksi.php";
+else{
+  header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>

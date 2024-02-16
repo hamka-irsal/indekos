@@ -1,9 +1,13 @@
 <?php
-session_start();
-if ($_SESSION['status'] != "login") {
-    header("location:../tampil_data_rekomendasi.php?pesan=belum_login");
+require 'function.php';
+include_once '../koneksi.php';
+$select = new Select();
+
+if (!empty($_SESSION["id"])) {
+    $user = $select->selectUserById($_SESSION["id"]);
+} else {
+    header("Location: tampil_data_rekomendasi.php");
 }
-include "../koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +22,7 @@ include "../koneksi.php";
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include "menu_topbar.php"; ?>
-
-
+            <?php include "menu_topbar.php"; ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -30,46 +32,23 @@ include "../koneksi.php";
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>NO</th>
-                                            <th>Nama Pengguna</th>
-                                            <th>Rating</th>
-                                            <th>Ulasan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 0;
-                                        $data = mysqli_query($koneksi, "select * from rating");
-                                        while ($d = mysqli_fetch_array($data)) {
-                                            $no++;
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $no ?></td>
-                                                <td><?php echo $d['nama']; ?></td>
-                                                <td><?php echo $d['rating']; ?></td>
-                                                <td><?php echo $d['ulasan']; ?></td>
-                                                <td>
-                                                    <a href="hapus_aksi_rekomendasi.php?id=<?php echo $d['id']; ?>" class="btn-sm btn-danger"><span class="fas fa-trash"></a>
-                                                </td>
-                                            </tr>
-                            </div>
-                        <?php
-                                        }
-                        ?>
-                        </tbody>
-                        </table>
+                                    <?php
+                                    // Instansiasi class ViewRating
+                                    $view = new View();
+                                    // Tampilkan data rating
+                                    echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
+                                    echo "<thead><tr><th>No</th><th>Nama</th><th>Rating</th><th>Ulasan</th><th>Aksi</th></tr></thead>";
+                                    echo "<tbody>";
+                                    $view->getRating();
 
+                                    echo "</table>";
+                                    ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php include "footer.php"; ?>
+
         </div>
-
-        <?php include "footer.php"; ?>
-
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- End of Page Wrapper -->

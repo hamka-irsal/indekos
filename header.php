@@ -16,9 +16,18 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title>REKOMENDASI PENCARIAN INDEKOS</title>
-
 	<link rel="icon" href="admin/img/Indekosta.png">
+	<style>
+		div.main-menu {
+			background-color: #27272a;
+			opacity: 0.5;
+		}
 
+		div.main-menu a {
+			font-weight: bold;
+			color: #ffff;
+		}
+	</style>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
 			CSS
@@ -35,28 +44,20 @@
 	<link rel="stylesheet" href="travelista-master/css/main.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
-<body>
+<body style="background-image: url('img/bgIndeKos.jpg');">
 	<header id="header">
-		<div class="header-top">
-			<div class="container">
-				<div class="row align-items-center">
-
-
-				</div>
-			</div>
-		</div>
-		<div class="container main-menu">
-			<div class="row align-items-center justify-content-between d-flex">
+		<div class="main-menu">
+			<div class="row align-items-center justify-content-between d-flex px-5">
 				<div id="logo">
-					<a href="index.php"><img src="admin/img/indekosta.png" width="50px" height="50px" alt="" title="" /></a>
+					<a href="index.php"><img src="admin/img/indekosta.png" width="55px" height="55px" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<li><a href="index.php">Home</a></li>
-						<li><a href="data_wisata.php">Data Kost</a></li>
+						<li><a href="data_kost.php">Data Kost</a></li>
 						<li><a href="rekomendasi.php">Rekomendasi</a></li>
 						<li><a href="admin/login.php">Login Admin</a></li>
 

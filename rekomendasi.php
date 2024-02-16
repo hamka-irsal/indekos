@@ -1,4 +1,8 @@
-<?php include "header.php"; ?>
+<?php 
+include_once "header.php"; 
+include_once "koneksi.php";
+?>
+
 <!-- start banner Area -->
 <!-- Start about-info Area -->
 <section class="about-info-area section-gap">
@@ -6,9 +10,7 @@
   <h2 style="text-align: center;">List Rekomendasi Indekos</h2>
 <br>
 <?php
-// Koneksi ke database
-$koneksi = mysqli_connect("localhost", "root", "", "sig_map4");
-
+// Include Koneksi
 // Fungsi untuk mendapatkan rekomendasi indekos
 function getRekomendasi($pengguna) {
     global $koneksi;
@@ -72,37 +74,36 @@ foreach ($rekomendasi as $indekosId => $score) {
     echo "Indekos ID: $indekosId, Score: $score <br>";
 }
 
-$conn = new mysqli("localhost", "root", "", "sig_map4");
+$limit = 5; // Jumlah data per halaman
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Halaman saat ini
+$start = ($page - 1) * $limit; // Mengambil nilai OFFSET berdasarkan halaman
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM wisata JOIN rating ORDER BY RAND() LIMIT 5";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM wisata JOIN rating ORDER BY RAND() LIMIT $limit OFFSET $start";
+$result = $koneksi->query($sql);
 ?>
 
-<!-- <h2>Rekomendasi Indekos</h2> -->
-    <center>
-<table border="1" >
-        <tr>
-            <th>Nama Indekos</th>
-            <th>Nama</th>
-            <th>Rating</th>
-            <th>Ulasan</th>
-        </tr>
-        <?php
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>{$row['nama_wisata']}</td>";
-                echo "<td>{$row['nama']}</td>";
-                echo "<td>{$row['rating']}</td>";
-                echo "<td>{$row['ulasan']}</td>";
-                echo "</tr>";
-            }
-        ?>
+<table class="table table-bordered mx-auto text-center">
+        <thead>
+            <tr>
+                <th scope="col">Nama Indekos</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Ulasan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>{$row['nama_wisata']}</td>";
+                    echo "<td>{$row['nama']}</td>";
+                    echo "<td>{$row['rating']}</td>";
+                    echo "<td>{$row['ulasan']}</td>";
+                    echo "</tr>";
+                }
+            ?>
+        </tbody>
     </table>
-    </center>
 </section>
 <!-- End about-info Area -->
 <?php include "footer.php"; ?>

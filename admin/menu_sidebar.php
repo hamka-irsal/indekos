@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon ">
             <img class="rounded-circle" src="img/Indekosta.png" width="45px" height="45px" alt="...">
         </div>
-        <div class="sidebar-brand-text mx-3">REKOMENDASI PENCARIAN INDEKOS</div>
+        <div class="sidebar-brand-text mx-3">INDEKOS</div>
 
     </a>
 
@@ -28,7 +28,7 @@
     <li class="nav-item">
         <a class="nav-link" href="tampil_data.php">
             <i class="fas fa-fw fa-user-friends"></i>
-            <span>Data Indekos</span></a>
+            <span>Data Indekosta</span></a>
     </li>
 
     <li class="nav-item">

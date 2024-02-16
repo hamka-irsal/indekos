@@ -56,6 +56,7 @@
     setInterval(showTime, 500);
     //-->
   </script>
+  
   <ul class="navbar-nav">
 
     <div class="topbar-divider d-none d-sm-block"></div>

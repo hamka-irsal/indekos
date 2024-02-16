@@ -4,7 +4,7 @@ $id = $_GET['id_wisata'];
 include_once "ambildata_id.php";
 $obj = json_decode($data);
 $id_wisata = "";
-$nama_wisata = "";
+$nama_kost = "";
 $alamat = "";
 $deskripsi = "";
 $harga_tiket = "";
@@ -12,7 +12,7 @@ $lat = "";
 $long = "";
 foreach ($obj->results as $item) {
   $id_wisata .= $item->id_wisata;
-  $nama_wisata .= $item->nama_wisata;
+  $nama_kost .= $item->nama_wisata;
   $alamat .= $item->alamat;
   $deskripsi .= $item->deskripsi;
   $harga_tiket .= $item->harga_tiket;
@@ -20,8 +20,6 @@ foreach ($obj->results as $item) {
   $long .= $item->longitude;
 }
 
-$title = "Detail dan Lokasi : " . $nama_wisata;
-//include_once "header.php"; 
 ?>
 <!-- start banner Area -->
 <section class="about-banner relative">
@@ -57,7 +55,7 @@ $title = "Detail dan Lokasi : " . $nama_wisata;
               <tr>
                 <td>Nama Kost</td>
                 <td>
-                  <h5><?php echo $nama_wisata ?></h5>
+                  <h5><?php echo $nama_kost ?></h5>
                 </td>
               </tr>
               <tr>
@@ -98,14 +96,12 @@ $title = "Detail dan Lokasi : " . $nama_wisata;
 
               <div class="row align-items-center" style="margin-left: 95px;">
                 <script>
+                  let name = "<?php echo $nama_kost ?>";
                   let DataLongLat = [<?php echo $lat; ?>, <?php echo $long; ?>];
-                  console.log(DataLongLat);
-                  let map = L.map('map').setView(DataLongLat, 13);
-                  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  }).addTo(map);
+                  let map = L.map('map').setView(DataLongLat, 17);
+                  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                   L.marker(DataLongLat).addTo(map)
-                    .bindPopup('Kost')
+                    .bindPopup(name)
                     .openPopup();
                 </script>
               </div>

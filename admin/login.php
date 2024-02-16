@@ -1,3 +1,31 @@
+<?php
+require 'function.php';
+
+if(!empty($_SESSION["id"])){
+  header("Location: index.php");
+}
+
+$login = new Login();
+
+if(isset($_POST["submit"])){
+  $result = $login->login($_POST["username"], $_POST["password"]);
+
+  if($result == 1){
+    $_SESSION["login"] = true;
+    $_SESSION["id"] = $login->idUser();
+    header("Location: index.php");
+  }
+  elseif($result == 10){
+    echo
+    "<script> alert('Password Salah!!'); </script>";
+  }
+  elseif($result == 100){
+    echo
+    "<script> alert('Akun Anda Tidak Terdaftar!'); </script>";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,35 +42,20 @@
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <!-- import bootstrap  -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
+        </link>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="icon" href="img/Indekosta.png">
 
 </head>
 
-<body class="bg-gradient-primary">
-
-    <?php
-    if (isset($_GET['pesan'])) {
-        if ($_GET['pesan'] == "gagal") {
-            echo "Login gagal! username dan password salah!";
-        } else if ($_GET['pesan'] == "logout") {
-            echo "Anda telah berhasil logout";
-        } else if ($_GET['pesan'] == "belum_login") {
-            echo "Anda harus login untuk mengakses halaman admin";
-        }
-    }
-    ?>
-
-    <div class="container">
-
-        <!-- Outer Row -->
-
-        <br>
-        <br>
-        <br>
-        <br>
+<body style="background-image: url('img/bgIndeKos.jpg');">
+    <div class="container" style="margin-top: 50px;">
         <div class="row justify-content-center">
 
             <div class="col-xl-5 col-lg-12 col-md-9">
@@ -53,11 +66,12 @@
                         <div class="row">
                             <div class="col-lg-0 d-none d-lg-block"></div>
                             <div class="col-lg-12">
-                                <div class="p-5">
+                                <div class="mx-4">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Admin!</h1>
+                                        <img src="img/indekosta.png" width="145px" height="145px" alt="" title="" />
+                                        <h1 class="h4 text-gray-900 mb-5">LOG IN</h1>
                                     </div>
-                                    <form class="user" method="post" action="login_cek.php">
+                                    <form class="user" method="POST" action="" autocomplete="off">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="username" aria-describedby="emailHelp" placeholder="Username">
                                         </div>
@@ -71,7 +85,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" value="LOGIN" class="btn btn-primary btn-user btn-block">
+                                        <input type="submit"  name="submit" value="LOGIN" class="btn btn-primary btn-user btn-block">
                                     </form>
                                     <hr>
                                 </div>
@@ -95,6 +109,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- CDN Sweet Alert -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 
 </body>
 
