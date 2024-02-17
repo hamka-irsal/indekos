@@ -63,7 +63,7 @@ class View extends Connection{
     }
 
     function getKost(){
-        $query = "SELECT * FROM wisata";
+        $query = "SELECT * FROM wisata ORDER BY id_wisata DESC";
         $result = mysqli_query($this->conn,$query);
 
         $no = 0;
@@ -83,6 +83,19 @@ class View extends Connection{
             echo "</tr>";
         }
     }
+
+      function getMap(){
+          $query = "SELECT * FROM wisata";
+          $result = mysqli_query($this->conn,$query);
+
+          $no = 0;
+
+          while ($d = mysqli_fetch_array($result)) {
+              
+              $data = $d['latitude'] . $d['longitude'];
+            
+          }
+      }
 
 }
 

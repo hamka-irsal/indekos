@@ -96,9 +96,9 @@ foreach ($obj->results as $item) {
 
               <div class="row align-items-center" style="margin-left: 95px;">
                 <script>
-                  let name = "<?php echo $nama_kost ?>";
-                  let DataLongLat = [<?php echo $lat; ?>, <?php echo $long; ?>];
-                  let map = L.map('map').setView(DataLongLat, 17);
+                  var name = "<?php echo $nama_kost ?>";
+                  var DataLongLat = [<?php echo $lat; ?>, <?php echo $long; ?>];
+                  var map = L.map('map').setView(DataLongLat, 17);
                   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                   L.marker(DataLongLat).addTo(map)
                     .bindPopup(name)

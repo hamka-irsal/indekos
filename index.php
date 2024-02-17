@@ -1,6 +1,32 @@
 <?php include "header.php"; ?>
+<?php
+// Koneksi ke database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "db_kost";
 
-<!-- start banner Area -->
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+// Ambil data wisata dari database
+$query = "SELECT * FROM wisata";
+$result = mysqli_query($conn, $query);
+
+$DataLongLat = array();
+
+while ($d = mysqli_fetch_array($result)) {
+  $DataLongLat[] = array(
+    'latitude' => $d['latitude'],
+    'longitude' => $d['longitude'],
+    'nama_kost' => $d['nama_wisata']
+  );
+}
+mysqli_close($conn);
+?>
+
 <section class="banner-area relative">
   <div class="overlay overlay-bg"></div>
   <div class="container">
@@ -34,142 +60,148 @@
           <br>
         </div>
 
-        <div class="row align-items-center" style="margin-left: 95px;">
-        <iframe
-        width="850" height="600" frameborder="0" scrolling="no"
-         marginheight="" marginwidth="0" 
-         src = "https://maps.google.com/maps?q=-5.140116223998017,119.48303797887351&hl=es;z=16&amp;output=embed"></iframe>
+        <div id="map" style="width:   1050px; height: 500px;"></div>
+        <script>
+          var map = L.map('map').setView([0, 0], 6); // Pusat peta di tengah dunia dengan zoom level  4
 
-          </iframe>
+          // Tambahkan layer OpenStreetMap
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+
+          // Buat array untuk menyimpan marker
+          var markers = [];
+
+          <?php foreach ($DataLongLat as $location) : ?>
+            var nama_kost = "<?php echo $location['nama_kost']; ?>"
+            var datLongLat = [<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>];
+            var marker = L.marker(datLongLat).addTo(map)
+              .bindPopup(nama_kost)
+              .openPopup();
+            // Tambahkan marker ke array
+            markers.push({
+              id: nama_kost, // Gunakan nama kost sebagai id unik
+              marker: marker
+            });
+            // Fokus peta ke posisi marker
+            map.setView(datLongLat, 13); // Anda dapat mengubah zoom level sesuai kebutuhan
+          <?php endforeach; ?>
+        </script>
+      
+      </div> <!-- ======= Counts Section ======= -->
+      <section id="counts">
+        <div class="container">
+          <div class="title text-center">
+            <h1 class="mb-10">Jumlah Tempat Indekos</h1>
+            <br>
+          </div>
+          <div class="row d-flex justify-content-center">
 
 
-          <!-- <div id="map" style="width: 950px; height: 400px;"></div>
-                  <script>
-                    var map = L.map('map').setView([-5.087979859148326, 119.4928552479124], 5);
+            <?php
+            include_once "countsma.php";
+            $obj = json_decode($data);
+            $sman = "";
+            foreach ($obj->results as $item) {
+              $sman .= $item->sma;
+            }
+            ?>
 
-                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    }).addTo(map);
-
-                    L.marker([-5.087979859148326, 119.4928552479124]).addTo(map)
-                      .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-                      .openPopup();
-                  </script>
-        </div> -->
-        </div> <!-- ======= Counts Section ======= -->
-        <section id="counts">
-          <div class="container">
-            <div class="title text-center">
-              <h1 class="mb-10">Jumlah Tempat Indekos</h1>
+            <div class="text-center">
+              <h1><span data-toggle="counter-up"><?php echo $sman; ?></span></h1>
               <br>
             </div>
-            <div class="row d-flex justify-content-center">
+            <?php
+            include_once "countsmk.php";
+            $obj2 = json_decode($data);
+            $smkn = "";
+            foreach ($obj2->results as $item2) {
+              $smkn .= $item2->smk;
+            }
+            ?>
 
+          </div>
 
-              <?php
-              include_once "countsma.php";
-              $obj = json_decode($data);
-              $sman = "";
-              foreach ($obj->results as $item) {
-                $sman .= $item->sma;
-              }
-              ?>
+        </div>
+        <section id="cta" class="cta">
+          <div class="container">
 
-              <div class="text-center">
-                <h1><span data-toggle="counter-up"><?php echo $sman; ?></span></h1>
-                <br>
-              </div>
-              <?php
-              include_once "countsmk.php";
-              $obj2 = json_decode($data);
-              $smkn = "";
-              foreach ($obj2->results as $item2) {
-                $smkn .= $item2->smk;
-              }
-              ?>
-
+            <div class="text-center" data-aos="zoom-in">
+              <h3>Data KOST</h3>
+              <p>Lihat Daftar Kost Yang Terdaftar Di App IndeKos Kami</p>
+              <a class="cta-btn" href="data_kost.php">Lihat Daftar</a>
             </div>
 
           </div>
-          <section id="cta" class="cta">
-            <div class="container">
+        </section><!-- End Cta Section -->
 
-              <div class="text-center" data-aos="zoom-in">
-                <h3>Data KOST</h3>
-                <p>Lihat Daftar Kost Yang Terdaftar Di App IndeKos Kami</p>
-                <a class="cta-btn" href="data_kost.php">Lihat Daftar</a>
-              </div>
-
-            </div>
-          </section><!-- End Cta Section -->
-
-          <!-- ======= Contact Section ======= -->
-          <section id="contact" class="contact">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-4" data-aos="fade-right">
-                  <div class="section-title">
-                    <h2>Kontak Kami</h2>
-                    <p>Halaman ini memuat informasi pengembang serta masukan kritik dan saran dari pengguna apabila ditemukan masalah. </p>
-                  </div>
-                </div>
-
-                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-
-                  <!-- <iframe style="border:0; width: 100%; height: 270px;" id="map-canvas"></iframe> -->
-                  <div class="info mt-4">
-                    <i class="icofont-google-map"></i>
-                    <h4>Lokasi:</h4>
-                    <p>Jl. Ketintang, Ketintang, Kec. Gayungan, Kota SBY, Indonesia 60231</p>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6 mt-4">
-                      <div class="info">
-                        <i class="icofont-envelope"></i>
-                        <h4>Email:</h4>
-                        <p>info@sigsma.com</p>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="info w-100 mt-4">
-                        <i class="icofont-phone"></i>
-                        <h4>Telepon:</h4>
-                        <p>+62 895 0987 6543</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
-                    <div class="form-row">
-                      <div class="col-md-6 form-group">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Nama anda" data-rule="minlen:4" data-msg="Masukkan sedikitnya 4 karakter" />
-                        <div class="validate"></div>
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email anda" data-rule="email" data-msg="Masukkan email yang valid" />
-                        <div class="validate"></div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="subject" id="subject" placeholder="Subjek" data-rule="minlen:4" data-msg="Masukkan setidaknya 8 karakter" />
-                      <div class="validate"></div>
-                    </div>
-                    <div class="form-group">
-                      <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Masukkan pesan untuk kami" placeholder="Pesan"></textarea>
-                      <div class="validate"></div>
-                    </div>
-                    <div class="mb-3">
-                      <div class="loading">Memuat</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Pesan anda telah terkirim. Terimakasih!</div>
-                    </div>
-                    <div class="text-center"><button type="submit">Kirim pesan</button></div>
-                  </form>
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4" data-aos="fade-right">
+                <div class="section-title">
+                  <h2>Kontak Kami</h2>
+                  <p>Halaman ini memuat informasi pengembang serta masukan kritik dan saran dari pengguna apabila ditemukan masalah. </p>
                 </div>
               </div>
 
+              <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+
+                <!-- <iframe style="border:0; width: 100%; height: 270px;" id="map-canvas"></iframe> -->
+                <div class="info mt-4">
+                  <i class="icofont-google-map"></i>
+                  <h4>Lokasi:</h4>
+                  <p>Jl. Ketintang, Ketintang, Kec. Gayungan, Kota SBY, Indonesia 60231</p>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 mt-4">
+                    <div class="info">
+                      <i class="icofont-envelope"></i>
+                      <h4>Email:</h4>
+                      <p>info@sigsma.com</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="info w-100 mt-4">
+                      <i class="icofont-phone"></i>
+                      <h4>Telepon:</h4>
+                      <p>+62 895 0987 6543</p>
+                    </div>
+                  </div>
+                </div>
+
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
+                  <div class="form-row">
+                    <div class="col-md-6 form-group">
+                      <input type="text" name="name" class="form-control" id="name" placeholder="Nama anda" data-rule="minlen:4" data-msg="Masukkan sedikitnya 4 karakter" />
+                      <div class="validate"></div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email anda" data-rule="email" data-msg="Masukkan email yang valid" />
+                      <div class="validate"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subjek" data-rule="minlen:4" data-msg="Masukkan setidaknya 8 karakter" />
+                    <div class="validate"></div>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Masukkan pesan untuk kami" placeholder="Pesan"></textarea>
+                    <div class="validate"></div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="loading">Memuat</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Pesan anda telah terkirim. Terimakasih!</div>
+                  </div>
+                  <div class="text-center"><button type="submit">Kirim pesan</button></div>
+                </form>
+              </div>
             </div>
-          </section><!-- End Contact Section -->
+
+          </div>
+        </section><!-- End Contact Section -->
 
 </main><!-- End #main -->
 
@@ -224,6 +256,7 @@
       </div>
     </div>
   </div>
+
   </section>
   <!-- End testimonial Area -->
 
