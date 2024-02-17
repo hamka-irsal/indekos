@@ -1,5 +1,7 @@
 <?php
 require_once './function.php';
+
+$user = Auth::user();
 ?>
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -62,7 +64,7 @@ require_once './function.php';
 
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="mr-3 d-none d-lg-inline text-gray-600 small"><?php echo Auth::user()['username'] ?></span>
+        <span class="mr-3 d-none d-lg-inline text-gray-600 small"><?php echo $user['username'] ?></span>
         <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
       </a>
 
@@ -72,7 +74,7 @@ require_once './function.php';
           Logout
         </a>
 
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" href="profil.php?id=<?php echo $user['id'] ?>">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           Profil
         </a>
