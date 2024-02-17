@@ -28,7 +28,7 @@
 
                             <?php
                             include '../koneksi.php';
-                            $id = $_GET['id_wisata'];
+                            $id = $_GET['id'];
                             $query = mysqli_query($koneksi, "select * from wisata where id_wisata='$id'");
                             $data  = mysqli_fetch_array($query);
                             ?>

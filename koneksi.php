@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$name = "sig_map4";
+$name = "db_kost";
 
 $koneksi = mysqli_connect($host, $user, $pass, $name);
 if (mysqli_connect_errno()) {

@@ -1,9 +1,14 @@
 <?php
-session_start();
-if (empty($_SESSION['username'])) {
-    header('location:../index.php');
-} else {
-    include "../koneksi.php";
+require 'function.php';
+include_once '../koneksi.php';
+$select = new Select();
+
+if(!empty($_SESSION["id"])){
+  $user = $select->selectUserById($_SESSION["id"]);
+}
+else{
+  header("Location: index.php");
+}
 ?>
 
     <!DOCTYPE html>
@@ -26,8 +31,6 @@ if (empty($_SESSION['username'])) {
                     $query = mysqli_query($koneksi, "select * from wisata where id_wisata='$id'");
                     $data  = mysqli_fetch_array($query);
                     ?>
-
-                <?php } ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->

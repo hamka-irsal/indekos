@@ -11,7 +11,17 @@
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js"></script>
+	<style>
+		#map {
+			height: 400px;
+			width: 100%;
+		}
+	</style>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -22,6 +32,6 @@
     <link href="js/select2/select2.min.css" rel="stylesheet">
 
     <!-- Chart-->
-    <script src="js/chart/Chart.js"></script>
+    <script src="js/chart/Chart.js" defer></script>
 
 </head>

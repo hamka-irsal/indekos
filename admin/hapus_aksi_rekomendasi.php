@@ -6,10 +6,13 @@ include '../koneksi.php';
 $id = $_GET['id'];
 
 
-// menghapus data dari database
-$query = mysqli_query($koneksi, "delete from rating where id='$id'");
-if ($query) {
-    echo "<script>alert('Data Berhasil Dihapus!'); window.location = 'tampil_data_rekomendasi.php'</script>";
-} else {
-    echo "<script>alert('Data Gagal Dihapus!'); window.location = 'tampil_data_rekomendasi.php'</script>";
-}
+echo "
+    <script>
+        var check = confirm('Apakah anda yakin? data yang anda hapus tidak dapat dikembalikan');
+        if (check) {
+            window.location = 'delete_rekomendasi.php?id=$id';
+        } else {
+            window.location = 'tampil_data_rekomendasi.php';
+        }
+    </script>
+";
