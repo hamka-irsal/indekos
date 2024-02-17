@@ -1,5 +1,4 @@
 <?php
-// koneksi database
 include '../koneksi.php';
 
 $id = $_GET['id'];
@@ -10,4 +9,3 @@ if ($query) {
 } else {
     echo "<script>alert('Data Gagal Dihapus!'); window.location = 'tampil_data.php'</script>";
 }
-

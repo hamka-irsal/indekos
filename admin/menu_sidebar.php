@@ -1,7 +1,5 @@
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon ">
             <img class="rounded-circle" src="img/Indekosta.png" width="45px" height="45px" alt="...">
@@ -10,47 +8,39 @@
 
     </a>
 
-    <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/index.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
         <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-chart-pie"></i>
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
     <hr class="sidebar-divider">
 
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/edit_data.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
         <a class="nav-link" href="tampil_data.php">
-            <i class="fas fa-fw fa-user-friends"></i>
-            <span>Data Indekosta</span></a>
+            <i class="fas fa-fw fa-home"></i>
+            <span>Indekosta</span>
+        </a>
     </li>
 
-    <li class="nav-item">
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data_rekomendasi.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
         <a class="nav-link" href="tampil_data_rekomendasi.php">
-            <i class="fas fa-fw fa-user-friends"></i>
-            <span>Data Rekomendasi</span></a>
+            <i class="fas fa-fw fa-star"></i>
+            <span>Rekomendasi</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="tambah_data.php">
-            <i class="fas fa-fw fa-user-friends"></i>
-            <span>Tambah Data</span></a>
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data_pengguna.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
+        <a class="nav-link" href="tampil_data_pengguna.php">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Pengguna</span></a>
     </li>
-    <!-- Divider -->
+
     <hr class="sidebar-divider">
 
-
-    <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-
 </ul>
-<!-- End of Sidebar -->

@@ -6,10 +6,12 @@ $select = new Select();
 if (!empty($_SESSION["id"])) {
     $user = $select->selectUserById($_SESSION["id"]);
 } else {
-    header("Location: tampil_data_rekomendasi.php");
+    header("Location: index.php");
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <?php include "header.php"; ?>
 
 <body id="page-top">
@@ -26,14 +28,17 @@ if (!empty($_SESSION["id"])) {
 
                     <div class="page-title d-flex justify-content-between mb-2">
                         <div>
-                            <h1 style="font-weight:600; color: black; font-size: 30px; margin: 0px">Data Rekomendasi</h1>
-                            <p>Menampilkan kumpulan data rekomendasi</p>
+                            <h1 style="font-weight:600; color: black; font-size: 30px; margin: 0px">Data Pengguna</h1>
+                            <p>Menampilkan kumpulan data pengguna</p>
+                        </div>
+                        <div class="mt-3">
+                            <a class="btn btn-primary " href="tambah_data_pengguna.php">Tambah Data Pengguna</a>
                         </div>
                     </div>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Rekomendasi Indekos Kecamatan Tamalanrea</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Kumpulan Data Pengguna</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -41,14 +46,13 @@ if (!empty($_SESSION["id"])) {
                                     <thead>
                                         <tr>
                                             <th class="text-center" style="width: 30px;">No</th>
-                                            <th>Nama</th>
-                                            <th>Rating</th>
-                                            <th>Ulasan</th>
-                                            <th class="text-center" style="width: 50px;">Aksi</th>
+                                            <th>Nama Pengguna</th>
+                                            <th>Username</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php View::Rating(); ?>
+                                        <?php View::Pengguna(); ?>
                                     </tbody>
                                 </table>
                             </div>
