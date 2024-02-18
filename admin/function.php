@@ -1,8 +1,10 @@
 <?php
 
-
-require './helpers/Ryoogen.php';
 session_start();
+
+require_once './helpers/Ryoogen.php';
+require_once './helpers/HomeChart.php';
+
 
 class Connection
 {
@@ -127,12 +129,34 @@ class View extends Connection
     }
   }
 
+  static function Dashboard()
+  {
+    $koneksi = new Connection();
+    $recomendation = "SELECT * FROM recomendations";
+    $user = "SELECT * FROM users";
+    $kost = "SELECT * FROM kost";
+
+    $totalRecomendation = mysqli_num_rows(mysqli_query($koneksi->conn, $recomendation));
+    $totalUser = mysqli_num_rows(mysqli_query($koneksi->conn, $user));
+    $totalKost = mysqli_num_rows(mysqli_query($koneksi->conn, $kost));
+
+    return [
+      'recomendation' => $totalRecomendation,
+      'user' => $totalUser,
+      'kost' => $totalKost,
+      'chart' => [
+        'recomendation' => HomeChart::RECOMENDATION(),
+        'user' => HomeChart::PENGGUNA(),
+        'kost' => HomeChart::KOST(),
+      ]
+    ];
+  }
+
   static function Kost()
   {
     $koneksi = new Connection();
     $query = "SELECT * FROM kost ORDER BY id DESC";
     $result = mysqli_query($koneksi->conn, $query);
-
 
     $no = 0;
 

@@ -3,6 +3,8 @@ require 'function.php';
 
 $select = new Select();
 
+$dashboard = View::Dashboard();
+
 if (!empty($_SESSION["id"])) {
     $user = $select->selectUserById($_SESSION["id"]);
 } else {
@@ -23,35 +25,58 @@ if (!empty($_SESSION["id"])) {
             <!-- Main Content -->
             <div id="content">
                 <?php include "menu_topbar.php"; ?>
-                <div class="row mx-3">
-                    <div class="card mt-2 flex mr-2">
+
+                <div class="container-fluid">
+                    <div class="page-title d-flex justify-content-between mb-2">
+                        <div>
+                            <h1 style="font-weight:600; color: black; font-size: 30px; margin: 0px">Dashboard</h1>
+                            <p>Ringkasan Aplikasi Anda.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mx-3 mb-2">
+                    <div class="card mt-2 mr-3" style="width: 220px;">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div style="color: black;">Total Data Kost</div>
                             </div>
 
                             <div class="d-flex align-items-baseline mt-3">
-                                <div class="h1 mb-0 me-2" style="font-size: 30px;">10</div>
+                                <div class="h1 mb-0 me-2" style="font-size: 30px;"><?php echo $dashboard['kost'] ?></div>
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-2 flex">
+
+                    <div class="card mt-2 mr-3" style="width: 220px;">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div style="color: black;">Total Data Ulasan</div>
+                                <div style="color: black;">Total Rekomendasi</div>
                             </div>
 
                             <div class="d-flex align-items-baseline mt-3">
-                                <div class="h1 mb-0 me-2" style="font-size: 30px;">10</div>
+                                <div class="h1 mb-0 me-2" style="font-size: 30px;"><?php echo $dashboard['kost'] ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-2 mr-3" style="width: 220px;">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div style="color: black;">Total Data Pengguna</div>
+                            </div>
+
+                            <div class="d-flex align-items-baseline mt-3">
+                                <div class="h1 mb-0 me-2" style="font-size: 30px;"><?php echo $dashboard['user'] ?></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mx-3">
-                    <div class="card h-100 mt-2 w-100">
+                    <div class="card h-100 mt-2 w-100" wire:ignore>
                         <div class="card-body">
-                            <h3 class="card-title"></h3>
+                            <h3 class="card-title" style="color: black; font-size:15px">Data Kost dan Rekomendasi 10 Hari Terakhir</h3>
 
                             <div id="chart-mentions" class="chart-lg">
                             </div>
@@ -69,51 +94,78 @@ if (!empty($_SESSION["id"])) {
     <script src="./js/libs/apexcharts/dist/apexcharts.min.js"></script>
 
     <script>
-        var options = {
-            series: [{
-                name: 'PRODUCT A',
-                data: [44, 55, 41, 67, 22, 43, 21, 49]
-            }, {
-                name: 'PRODUCT B',
-                data: [13, 23, 20, 8, 13, 27, 33, 12]
-            }, {
-                name: 'PRODUCT C',
-                data: [11, 17, 15, 15, 21, 14, 15, 13]
-            }],
+        const item = document.getElementById('chart-mentions');
+        window.ApexCharts && (new ApexCharts(item, {
             chart: {
-                type: 'bar',
-                height: 350,
+                type: "bar",
+                fontFamily: 'inherit',
+                height: 380,
+                parentHeightOffset: 0,
+                toolbar: {
+                    show: false,
+                },
+                animations: {
+                    enabled: false
+                },
                 stacked: true,
-                stackType: '100%'
             },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom',
-                        offsetX: -10,
-                        offsetY: 0
-                    }
+            plotOptions: {
+                bar: {
+                    columnWidth: '50%',
                 }
-            }],
-            xaxis: {
-                categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
-                    '2012 Q3', '2012 Q4'
-                ],
+            },
+            dataLabels: {
+                enabled: false,
             },
             fill: {
-                opacity: 1
+                opacity: 1,
             },
+            series: [{
+                    name: "Data Kost",
+                    data: <?= json_encode($dashboard['chart']['kost']['data']) ?>
+                },
+                {
+                    name: "Data Rekomendasi",
+                    data: <?= json_encode($dashboard['chart']['recomendation']['data']) ?>
+                }
+            ],
+            grid: {
+                padding: {
+                    top: -20,
+                    right: 0,
+                    left: -4,
+                    bottom: -4
+                },
+                strokeDashArray: 4,
+                xaxis: {
+                    lines: {
+                        show: true
+                    }
+                },
+            },
+            xaxis: {
+                labels: {
+                    padding: 0,
+                },
+                tooltip: {
+                    enabled: false
+                },
+                axisBorder: {
+                    show: false,
+                },
+                type: 'datetime',
+            },
+            yaxis: {
+                labels: {
+                    padding: 4
+                },
+            },
+            labels: <?= json_encode($dashboard['chart']['kost']['date']) ?>,
+            colors: ["#1d4ed8", "#4ade80"],
             legend: {
-                position: 'right',
-                offsetX: 0,
-                offsetY: 50
+                show: false,
             },
-            colors: ["#008ffb", "#00e396", "#80f1cb"],
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart-mentions"), options);
-        chart.render();
+        })).render();
     </script>
 
 </body>
