@@ -18,7 +18,7 @@
 
     <hr class="sidebar-divider">
 
-    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/edit_data.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/edit_data.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/tambah_data.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
         <a class="nav-link" href="tampil_data.php">
             <i class="fas fa-fw fa-home"></i>
             <span>Indekosta</span>
@@ -31,7 +31,7 @@
             <span>Rekomendasi</span></a>
     </li>
 
-    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data_pengguna.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
+    <li <?php if ($_SERVER['SCRIPT_NAME'] == "/indekos/admin/tampil_data_pengguna.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/edit_data_pengguna.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/admin/tambah_data_pengguna.php") { ?> class="nav-item active" <?php   } else {  ?> class="nav-item" <?php } ?>>
         <a class="nav-link" href="tampil_data_pengguna.php">
             <i class="fas fa-fw fa-user"></i>
             <span>Pengguna</span></a>
