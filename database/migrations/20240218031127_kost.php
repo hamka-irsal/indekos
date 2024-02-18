@@ -23,9 +23,9 @@ final class Kost extends AbstractMigration
         $table->addColumn('nama_kost', 'string');
         $table->addColumn('alamat', 'text');
         $table->addColumn('deskripsi', 'text');
-        $table->addColumn('harga_tiket', 'integer');
-        $table->addColumn('latitude', 'string');
-        $table->addColumn('longitude', 'string');
+        $table->addColumn('harga', 'integer');
+        $table->addColumn('latitude', 'string', ['null' => true]);
+        $table->addColumn('longitude', 'string', ['null' => true]);
         $table->addColumn('updated_at', 'datetime', ['null' => true]);
         $table->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP']);
         $table->create();

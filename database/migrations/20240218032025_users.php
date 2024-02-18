@@ -23,7 +23,8 @@ final class Users extends AbstractMigration
         $table->addColumn('nama', 'string',);
         $table->addColumn('username', 'string');
         $table->addColumn('email', 'string');
-        $table->addColumn('avatar', 'string');
+        $table->addColumn('password', 'string');
+        $table->addColumn('avatar', 'string', ['null' => true]);
         $table->addIndex(['email'], ['unique' => true]);
         $table->addColumn('updated_at', 'datetime', ['null' => true]);
         $table->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP']);
