@@ -87,7 +87,7 @@ mysqli_close($conn);
             map.setView(datLongLat, 13); // Anda dapat mengubah zoom level sesuai kebutuhan
           <?php endforeach; ?>
         </script>
-      
+
       </div> <!-- ======= Counts Section ======= -->
       <section id="counts">
         <div class="container">

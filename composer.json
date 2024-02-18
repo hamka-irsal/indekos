@@ -1,0 +1,7 @@
+{
+    "name": "ryoogen/indekos",
+    "description": "Aplikasi Indekost Kec Tamanlanrea",
+    "require-dev": {
+        "robmorgan/phinx": "^0.16.0"
+    }
+}

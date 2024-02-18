@@ -50,14 +50,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Nama Pengguna</label>
                                     <div class="col-sm-6">
-                                        <input name="nama_pengguna" value="<?php $data['nama']; ?>" type="text" class="form-control" placeholder="Nama Pengguna" required />
+                                        <input name="nama_pengguna" value="<?php echo $data['nama'] ?>" type="text" class="form-control" placeholder="Nama Pengguna" required />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-4 control-label">Username</label>
                                     <div class="col-sm-6">
-                                        <input name="username" class="form-control" type="text" placeholder="Username" required value="<?php $data['username']; ?>" />
+                                        <input name="username" class="form-control" type="text" placeholder="Username" required value="<?php echo $data['username'] ?>" />
                                     </div>
                                 </div>
 
