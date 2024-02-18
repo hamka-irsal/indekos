@@ -17,13 +17,13 @@ if (!empty($_SESSION["id"])) {
 <?php include "header.php"; ?>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
+
         <?php include "menu_sidebar.php"; ?>
-        <!-- Content Wrapper -->
+
         <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
             <div id="content">
+
                 <?php include "menu_topbar.php"; ?>
 
                 <div class="container-fluid">
@@ -74,7 +74,7 @@ if (!empty($_SESSION["id"])) {
                 </div>
 
                 <div class="row mx-3">
-                    <div class="card h-100 mt-2 w-100" wire:ignore>
+                    <div class="card h-100 mt-2 w-100">
                         <div class="card-body">
                             <h3 class="card-title" style="color: black; font-size:15px">Data Kost dan Rekomendasi 10 Hari Terakhir</h3>
 
@@ -84,12 +84,11 @@ if (!empty($_SESSION["id"])) {
                     </div>
                 </div>
             </div>
-            <!-- End of Main Content -->
+
             <?php include "footer.php"; ?>
+
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
 
     <script src="./js/libs/apexcharts/dist/apexcharts.min.js"></script>
 
