@@ -108,10 +108,10 @@ class Auth
 
 class View extends Connection
 {
-  public function Rating()
+  static function Rating()
   {
     $koneksi = new Connection();
-    $query = "SELECT * FROM rating";
+    $query = "SELECT * FROM recomendations ORDER BY id DESC";
     $result = mysqli_query($koneksi->conn, $query);
 
     $no = 0;
