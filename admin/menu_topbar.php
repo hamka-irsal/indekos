@@ -65,7 +65,11 @@ $user = Auth::user();
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="mr-3 d-none d-lg-inline text-gray-600 small"><?php echo $user['username'] ?></span>
-        <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+        <?php if (!isset($user['avatar'])) : ?>
+          <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+        <?php else : ?>
+          <img class="img-profile rounded-circle" src="upload/<?php echo $user['avatar'] ?>">
+        <?php endif ?>
       </a>
 
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -46,8 +46,10 @@ if (!empty($_SESSION["id"])) {
                                     <thead>
                                         <tr>
                                             <th class="text-center" style="width: 30px;">No</th>
+                                            <th class="text-center">Avatar</th>
                                             <th>Nama Pengguna</th>
                                             <th>Username</th>
+                                            <th>Email</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>

@@ -1,5 +1,6 @@
 <?php
 
+
 require './helpers/Ryoogen.php';
 session_start();
 
@@ -20,13 +21,13 @@ class Connection
 class Login extends Connection
 {
   public $id;
-  public function login($username, $password)
+  public function login($email, $password)
   {
-    $result = mysqli_query($this->conn, "SELECT * FROM admin WHERE username = '$username'");
+    $result = mysqli_query($this->conn, "SELECT * FROM users WHERE email = '$email'");
     $row = mysqli_fetch_assoc($result);
 
     if (mysqli_num_rows($result) > 0) {
-      if ($password == $row["password"]) {
+      if (password_verify($password, $row['password'])) {
         $this->id = $row["id"];
         return 1;
       } else {
@@ -94,7 +95,7 @@ class Auth
   {
     $id = $_SESSION['id'];
     $koneksi = new Connection();
-    $result = mysqli_query($koneksi->conn, "SELECT * FROM admin WHERE id= '$id'");
+    $result = mysqli_query($koneksi->conn, "SELECT * FROM users WHERE id= '$id'");
     $row = mysqli_fetch_assoc($result);
 
     if (isset($row)) {
@@ -107,7 +108,7 @@ class Auth
 
 class View extends Connection
 {
-  static function Rating()
+  public function Rating()
   {
     $koneksi = new Connection();
     $query = "SELECT * FROM rating";
@@ -154,17 +155,20 @@ class View extends Connection
   static function Pengguna()
   {
     $koneksi = new Connection();
-    $query = "SELECT * FROM admin ORDER BY id DESC";
+    $query = "SELECT * FROM users ORDER BY id DESC";
     $result = mysqli_query($koneksi->conn, $query);
 
     $no = 0;
 
     while ($d = mysqli_fetch_array($result)) {
       $no++;
+      $avatar = $d['avatar'];
       echo "<tr>";
       echo "<td class='text-center'>" . $no . "</td>";
-      echo "<td>" . $d['nama'] . "</td>";
-      echo "<td>" . $d['username'] . "</td>";
+      echo "<td class='text-center d-flex justify-content-center'>" . "<div class='rounded-circle' style='width: 50px; height: 50px; overflow: hidden'><img style='widht: 50px; height: 50px; object-fit: cover' src='upload/$avatar' alt='$avatar'></div>" . "</td>";
+      echo "<td>" . $d['nama'] ?? '-' . "</td>";
+      echo "<td>" . $d['username'] ?? '-' . "</td>";
+      echo "<td>" . $d['email'] ?? '-' . "</td>";
       echo "<td class='col-2 text-center' style='width:100px'><a href='edit_data_pengguna.php?id=" . $d['id'] . "' class='btn-sm btn-primary'><span class='fas fa-edit'></a>
             <a href='hapus_aksi_pengguna.php?id=" . $d['id'] . "' class='btn-sm btn-danger'><span class='fas fa-trash'></a>
             </td>";

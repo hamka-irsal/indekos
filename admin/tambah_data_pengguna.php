@@ -48,6 +48,20 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 col-sm-4 control-label">Email (Alamat Surel)</label>
+                                    <div class="col-sm-6">
+                                        <input name="email" class="form-control" type="text" placeholder="Email" required value="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-4 form-label">Avatar</label>
+                                    <div class="col-sm-6">
+                                        <input name="avatar" class="form-control" type="file" placeholder="Avatar" required value="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 col-sm-4 control-label">Password (Sandi Akun)</label>
                                     <div class="col-sm-6">
                                         <input name="password" class="form-control" type="password" placeholder="Password" required value="" />
