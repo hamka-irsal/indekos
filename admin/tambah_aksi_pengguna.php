@@ -15,11 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $upload = Helpers::upload($avatar);
 
         if (in_array($upload['type'], $upload['allowed'])) {
-            if (file_exists("upload/" . $upload['name'])) {
-                echo $upload['name'] . " is already exists.";
+            $image = md5(time() . $upload['name']);
+
+            if (file_exists("upload/" . $image)) {
+                echo $image . " is already exists.";
             } else {
-                if (move_uploaded_file($avatar["tmp_name"], "upload/" . $upload['name'])) {
-                    $image = $upload['name'];
+                if (move_uploaded_file($avatar["tmp_name"], "upload/" . $image)) {
                     mysqli_query($koneksi, "insert into users (nama,username, password, email, avatar) values('$nama','$username','$password', '$email', '$image')");
                     header("location:tampil_data_pengguna.php");
                 } else {

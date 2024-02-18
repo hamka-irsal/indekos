@@ -195,7 +195,7 @@ class Select extends Connection
 {
   public function selectUserById($id)
   {
-    $result = mysqli_query($this->conn, "SELECT * FROM admin WHERE id = $id");
+    $result = mysqli_query($this->conn, "SELECT * FROM users WHERE id = $id");
     return mysqli_fetch_assoc($result);
   }
 }

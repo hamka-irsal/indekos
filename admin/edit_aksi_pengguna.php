@@ -10,20 +10,27 @@ $email = $_POST['email'];
 $avatar = $_FILES['avatar'];
 $password = $_POST['password'];
 
+$query = mysqli_query($koneksi, "select avatar from users where id='$id'");
+$imageOld = mysqli_fetch_array($query);
+
+if ($imageOld['avatar']) {
+    unlink('upload/' . $imageOld['avatar']);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($avatar) || isset($upload)) {
         $upload = Helpers::upload($avatar);
 
         if (in_array($upload['type'], $upload['allowed'])) {
-            if (file_exists("upload/" . $upload['name'])) {
-                echo $upload['name'] . " is already exists.";
+            $image = md5(time() . $upload['name']);
+
+            if (file_exists("upload/" . $image)) {
+                echo $image . " is already exists.";
             } else {
-                if (move_uploaded_file($avatar["tmp_name"], "upload/" . $upload['name'])) {
-                    $image = $upload['name'];
-
-                    $password = password_hash($password, PASSWORD_DEFAULT);
-
+                if (move_uploaded_file($avatar["tmp_name"], "upload/" . $image)) {
                     if ($password) {
+                        $password = password_hash($password, PASSWORD_DEFAULT);
+
                         mysqli_query($koneksi, "update users set nama='$nama', username='$username',email='$email', password='$password',avatar='$image' where id='$id'");
                         header("location:tampil_data_pengguna.php");
                     } else {
