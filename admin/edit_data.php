@@ -33,7 +33,7 @@
                             <?php
                             include '../koneksi.php';
                             $id = $_GET['id'];
-                            $query = mysqli_query($koneksi, "select * from wisata where id_wisata='$id'");
+                            $query = mysqli_query($koneksi, "select * from kost where id='$id'");
                             $data  = mysqli_fetch_array($query);
                             ?>
 
@@ -43,14 +43,14 @@
                                     <div class="form-group d-none">
                                         <label class="col-lg-6 col-12 control-label">ID Indekos</label>
                                         <div class="col-lg-6 col-12">
-                                            <input name="id_wisata" type="text" id="id_wisata" class="form-control" value="<?php echo $data['id_wisata']; ?>" readonly />
+                                            <input name="id_kost" type="text" id="id_kost" class="form-control" value="<?php echo $data['id']; ?>" readonly />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-6 col-12 control-label">Nama Indekos</label>
                                         <div class="col-lg-6 col-12">
-                                            <input name="nama_wisata" type="text" id="nama_wisata" class="form-control" value="<?php echo $data['nama_wisata']; ?>" required />
+                                            <input name="nama_wisata" type="text" id="nama_wisata" class="form-control" value="<?php echo $data['nama_kost']; ?>" required />
                                         </div>
                                     </div>
 
@@ -69,7 +69,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-6 col-12 control-label">Harga</label>
                                         <div class="col-lg-6 col-12">
-                                            <input name="harga_tiket" class="form-control" type="text" id="harga_tiket" type="text" value="<?php echo $data['harga_tiket']; ?>" required />
+                                            <input name="harga" class="form-control" type="text" id="harga" type="text" value="<?php echo $data['harga']; ?>" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -109,6 +109,14 @@
 
                                     var longitude = document.querySelector("input[name=longitude]");
                                     var latitude = document.querySelector("input[name=latitude]");
+
+                                    if (latitude.value == "") {
+                                        latitude.value = -5.155978984099238;
+                                    }
+
+                                    if (longitude.value == "") {
+                                        longitude.value = 119.40353393554689;
+                                    }
 
                                     var map = L.map('map', {
                                         center: [latitude.value ?? -5.155978984099238, longitude.value ?? 119.40353393554689],

@@ -47,6 +47,7 @@ if (!empty($_SESSION["id"])) {
                                         <tr>
                                             <th style="width: 30px;">No</th>
                                             <th style="width: 100px;">Nama Indekos</th>
+                                            <th style="width: 100px;">Deksripsi</th>
                                             <th style="width: auto;">Alamat</th>
                                             <th style="width: 100px;">Harga</th>
                                             <th style="width: 50px;">Rating</th>

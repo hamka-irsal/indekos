@@ -9,6 +9,6 @@ $harga_tiket = $_POST['harga_tiket'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
-mysqli_query($koneksi, "insert into wisata (nama_wisata,alamat,deskripsi,harga_tiket,latitude,longitude) values('$nama','$alamat','$deskripsi','$harga_tiket','$latitude','$longitude')");
+mysqli_query($koneksi, "insert into kost (nama_kost,alamat,deskripsi,harga,latitude,longitude) values('$nama','$alamat','$deskripsi','$harga_tiket','$latitude','$longitude')");
 
 header("location:tampil_data.php");

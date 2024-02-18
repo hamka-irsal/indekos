@@ -53,10 +53,10 @@ class TotalData
     $totalUlasan = 0;
 
     if ($id) {
-      $query = "SELECT ulasan FROM rating WHERE indekos_id=$id";
+      $query = "SELECT ulasan FROM recomendations WHERE kost_id=$id";
       $result = mysqli_query($koneksi->conn, $query);
     } else {
-      $query = "SELECT ulasan FROM rating";
+      $query = "SELECT ulasan FROM recomendations";
       $result = mysqli_query($koneksi->conn, $query);
     }
 
@@ -74,10 +74,10 @@ class TotalData
     $totalRating = 0;
 
     if ($id) {
-      $query = "SELECT rating FROM rating WHERE indekos_id=$id";
+      $query = "SELECT rating FROM recomendations WHERE kost_id=$id";
       $result = mysqli_query($koneksi->conn, $query);
     } else {
-      $query = "SELECT rating FROM rating";
+      $query = "SELECT rating FROM recomendations";
       $result = mysqli_query($koneksi->conn, $query);
     }
 
@@ -130,7 +130,7 @@ class View extends Connection
   static function Kost()
   {
     $koneksi = new Connection();
-    $query = "SELECT * FROM wisata ORDER BY id_wisata DESC";
+    $query = "SELECT * FROM kost ORDER BY id DESC";
     $result = mysqli_query($koneksi->conn, $query);
 
 
@@ -140,13 +140,14 @@ class View extends Connection
       $no++;
       echo "<tr>";
       echo "<td class='text-center'>" . $no . "</td>";
-      echo "<td>" . $d['nama_wisata'] . "</td>";
+      echo "<td>" . $d['nama_kost'] . "</td>";
+      echo "<td>" . $d['deskripsi'] . "</td>";
       echo "<td>" . $d['alamat'] . "</td>";
-      echo "<td>" . Helpers::money_format_idr($d['harga_tiket']) ?? '-' . "</td>";
-      echo "<td class='text-center'>" . TotalData::Rating($d['id_wisata']) ?? '-' . "</td>";
-      echo "<td class='text-center'>" . TotalData::Ulasan($d['id_wisata']) ?? '-' . "</td>";
-      echo "<td class='col-2 text-center' style='width:100px'><a href='edit_data.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-primary'><span class='fas fa-edit'></a>
-            <a href='hapus_aksi.php?id=" . $d['id_wisata'] . "' class='btn-sm btn-danger'><span class='fas fa-trash'></a>
+      echo "<td>" . Helpers::money_format_idr($d['harga']) ?? '-' . "</td>";
+      echo "<td class='text-center'>" . TotalData::Rating($d['id']) ?? '-' . "</td>";
+      echo "<td class='text-center'>" . TotalData::Ulasan($d['id']) ?? '-' . "</td>";
+      echo "<td class='col-2 text-center' style='width:100px'><a href='edit_data.php?id=" . $d['id'] . "' class='btn-sm btn-primary'><span class='fas fa-edit'></a>
+            <a href='hapus_aksi.php?id=" . $d['id'] . "' class='btn-sm btn-danger'><span class='fas fa-trash'></a>
             </td>";
       echo "</tr>";
     }
