@@ -72,7 +72,7 @@ while ($d = mysqli_fetch_array($result)) {
 
                             var map = L.map('map', {
                                 center: [<?= $DataLongLat[0]['latitude']; ?>, <?= $DataLongLat[0]['longitude']; ?>],
-                                zoom: 10,
+                                zoom: 13,
                                 layers: [osm],
                                 minZoom: 5,
                                 maxZoom: 15,

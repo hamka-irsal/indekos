@@ -121,22 +121,22 @@
                                     var latitude = document.querySelector("input[name=latitude]");
 
                                     if (latitude.value == "") {
-                                        latitude.value = -5.155978984099238;
+                                        latitude.value = -5.143465248049867;
                                     }
 
                                     if (longitude.value == "") {
-                                        longitude.value = 119.40353393554689;
+                                        longitude.value = 119.42513287132269;
                                     }
 
                                     var map = L.map('map', {
-                                        center: [latitude.value ?? -5.155978984099238, longitude.value ?? 119.40353393554689],
-                                        zoom: 18,
+                                        center: [latitude.value ?? -5.143465248049867, longitude.value ?? 119.42513287132269],
+                                        zoom: 12,
                                         layers: [osm],
                                         minZoom: 5,
                                         maxZoom: 15,
                                     });
 
-                                    var marker = L.marker([latitude.value ?? -5.155978984099238, longitude.value ?? 119.40353393554689], {
+                                    var marker = L.marker([latitude.value ?? -5.143465248049867, longitude.value ?? 119.42513287132269], {
                                         draggable: true
                                     }).addTo(map);
 

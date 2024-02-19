@@ -107,14 +107,14 @@
                                 });
 
                                 var map = L.map('map', {
-                                    center: [-5.155978984099238, 119.40353393554689],
+                                    center: [-5.143465248049867, 119.42513287132269],
                                     zoom: 13,
                                     layers: [osm],
                                     minZoom: 5,
                                     maxZoom: 15,
                                 });
 
-                                var marker = L.marker([-5.155978984099238, 119.40353393554689], {
+                                var marker = L.marker([-5.143465248049867, 119.42513287132269], {
                                     draggable: true
                                 }).addTo(map);
 

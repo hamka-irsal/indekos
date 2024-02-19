@@ -16,69 +16,77 @@ class KostTableSeeder extends AbstractSeed
      */
     public function run(): void
     {
-        $items = [
-            [
-                "nama_kost" => "Kost Permata Indah",
-                "alamat" => "Jl Tamanlanrea Lorong 1",
-                "deskripsi" => "Kost murah, aman dan terjangkau dengan fasilitas lengkap",
-                "harga" => 200000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Kost Permai Tamanlanrea",
-                "alamat" => "Jl Tamanlanrea Lorong 2",
-                "deskripsi" => "Singahki, di kost permai tamanlanrea, murahki dan nayaman",
-                "harga" => 250000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Mami Kost",
-                "alamat" => "Jl Tamanlanrea Lorong 3",
-                "deskripsi" => "Kost Terbaik, murah dan aman",
-                "harga" => 250000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Papa Kost",
-                "alamat" => "Jl Tamanlanrea Lorong Kiri 3",
-                "deskripsi" => "Kost paling aman di tamanlanrea",
-                "harga" => 250000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Kost Murah",
-                "alamat" => "Jl Tamanlanrea Lorong Kiri 4",
-                "deskripsi" => "Kost terdepan untuk mahasiswa",
-                "harga" => 350000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Kost Hidayat",
-                "alamat" => "Jl Tamanlanrea Lorong Kiri 6",
-                "deskripsi" => "Kost paling murah di makassar",
-                "harga" => 100000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Kost Hidayat",
-                "alamat" => "Jl Tamanlanrea Lorong Kiri 6",
-                "deskripsi" => "Kost paling murah di makassar",
-                "harga" => 100000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ],
-            [
-                "nama_kost" => "Kost Fery",
-                "alamat" => "Jl Tamanlanrea Lorong Kiri 6",
-                "deskripsi" => "Menerima kost untuk wanita",
-                "harga" => 300000,
-                "updated_at" => date('Y-m-d H:i:s'),
-            ]
+        $kostNames = [
+            "Kost Bersama",
+            "Kost Gembira",
+            "Kost Harmoni",
+            "Kost Inspirasi",
+            "Kost Jelita",
+            "Kost Karya",
+            "Kost Lestari",
+            "Kost Mewah",
+            "Kost Nagari",
+            "Kost One",
+            "Kost Permata",
+            "Kost Qlassic",
+            "Kost Rasa",
+            "Kost Sentosa",
+            "Kost Terang",
+            "Kost Unik",
+            "Kost Vista",
+            "Kost Warna",
+            "Kost Xtra",
+            "Kost Yasmin",
+            "Kost Zest",
+            "Kost Aman",
+            "Kost Bagus",
+            "Kost Ceria",
+            "Kost Damai",
+            "Kost Elegant",
+            "Kost Fenomena",
+            "Kost Gardenia",
+            "Kost Harmoni",
+            "Kost Iris",
+            "Kost Jaz",
+            "Kost Kita",
+            "Kost Luminosa",
+            "Kost Mascot",
+            "Kost Nusa",
+            "Kost Optima",
+            "Kost Pandawa",
+            "Kost Qris",
+            "Kost Rasa",
+            "Kost Sukses",
+            "Kost Terang",
+            "Kost Ubud",
+            "Kost Vibrant",
+            "Kost Wiranta",
+            "Kost Xenia",
+            "Kost Yasmin",
+            "Kost Zamrud",
+            "Kost Edelweis",
+            "Kost Puspa",
+            "Kost Elite 51"
         ];
 
-        foreach ($items as $item) {
-            $kost = $this->table('kost');
-            $kost->insert($item)
+        $kosts = [];
+
+        for ($i = 0; $i < 50; $i++) {
+            $kost = [
+                "nama_kost" =>  $kostNames[$i],
+                "alamat" => "Jl Tamanlanrea Lorong " . ($i + 1),
+                "deskripsi" => "Kost " . $kostNames[$i] . ", murah, aman dan terjangkau dengan fasilitas lengkap",
+                "harga" => rand(100000, 500000),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ];
+
+            $kosts[] = $kost;
+        }
+
+        foreach ($kosts as $kost) {
+            $this->table('kost')->insert($kost)
                 ->save();
         }
+    
     }
 }
