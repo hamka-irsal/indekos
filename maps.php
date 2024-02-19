@@ -132,7 +132,7 @@ while ($d = mysqli_fetch_array($result)) {
                                 var firstResult = data.results[0];
                                 var latlng = L.latLng(firstResult.latlng.lat, firstResult.latlng.lng);
                                 marker.setLatLng(latlng);
-                                map.setView(latlng, 13);
+                                map.setView(latlng, 2);
                             });
                         </script>
                     </div>

@@ -6,8 +6,8 @@ $id = $_GET['id'];
 
 $query = "SELECT * FROM kost WHERE id='$id'";
 $result = mysqli_query($koneksi->conn, $query);
-
 $kost = mysqli_fetch_assoc($result);
+
 $query = "SELECT * FROM recomendations WHERE kost_id='$id' LIMIT 5";
 $recomendations = mysqli_query($koneksi->conn, $query);
 
@@ -100,11 +100,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                             <div class="row align-items-center" style="margin-left: 95px;">
                                                 <script>
-                                                    var DataLongLat = [-5.155978984099238, 119.40353393554689];
-                                                    var map = L.map('map').setView(DataLongLat, 16);
+                                                    var link = `<table cellpadding="5">
+                                                        <tr>
+                                                            <td>Nama</td>
+                                                            <td>:</td>
+                                                            <td><b><?= $kost['nama_kost'] ?></b></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                <b><?= $kost['alamat'] ?></b>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Deskripsi</td>
+                                                            <td>:</td>
+                                                            <td><b><?= $kost['deskripsi'] ?></b></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Tanggal</td>
+                                                            <td>:</td>
+                                                            <td><b><?= $kost['created_at'] ?></b></td>
+                                                        </tr>
+                                                    </table>
+                                                    `
+                                                    var DataLongLat = [<?= $kost['latitude'] ?>, <?= $kost['longitude'] ?>];
+                                                    var map = L.map('map').setView(DataLongLat, 10);
                                                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                                                     L.marker(DataLongLat).addTo(map)
-                                                        .bindPopup("Hellow World")
+                                                        .bindPopup(link)
                                                         .openPopup();
                                                 </script>
                                             </div>
