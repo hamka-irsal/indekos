@@ -43,7 +43,9 @@ $result = mysqli_query($koneksi->conn, $query);
 
           <div class="col-md-10 col-xl-5 position-relative mx-auto mt-7 mt-xl-0">
 
-            <img src="aset/images/rooms.jpg" class="rounded" alt="hero-img">
+            <?php include('./components/figure/figureTwo.php') ?>
+
+            <img src="aset/images/bg/001.png" class="rounded" alt="hero-img">
 
           </div>
         </div>
