@@ -52,7 +52,11 @@ $result = mysqli_query($koneksi->conn, $query);
                         <div class="col-md-6 col-lg-4">
                             <article class="card bg-transparent h-100 p-0">
                                 <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Diswakan</div>
-                                <img src="aset/images/blog/4by3/03.jpg" class="card-img" alt="Blog-img">
+                                <?php if ($data['image']) : ?>
+                                    <img src="admin/upload/<?= $data['image'] ?>" class="card-img" alt="Blog-img">
+                                <?php else : ?>
+                                    <img src="aset/images/blog/4by3/03.jpg" class="card-img" alt="Blog-img">
+                                <?php endif ?>
                                 <div class="card-body px-2 pb-4">
                                     <h6 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h6>
                                     <p class="small mb-0"><?= $data['deskripsi'] ?></p>

@@ -35,7 +35,7 @@ while ($d = mysqli_fetch_array($result)) {
     <?php include('./components/header.php') ?>
     <main>
         <section class="pt-8">
-            <div class="container">
+            <div class="container mb-6">
                 <div class="inner-container text-center mb-2">
                     <h1 class="mb-0 lh-base position-relative">
                         <span class="position-absolute top-0 start-0 mt-n5 ms-n5 d-none d-sm-block">
@@ -49,9 +49,16 @@ while ($d = mysqli_fetch_array($result)) {
                         </span>
                         Cari Lokasi Kost Kamu.
                     </h1>
+
+                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                        <div class="input-group">
+                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Cari Kost Sekarang">
+                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Cari Kost</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="container">
+            <div class="container mt-6">
                 <div class="row g-xl-7 justify-content-center">
                     <div class="card-body border-top">
                         <div class="row">
