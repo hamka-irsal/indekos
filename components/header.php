@@ -3,12 +3,6 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 	<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
 	<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js"></script>
-	<style>
-		#map {
-			height: 400px;
-			width: 100%;
-		}
-	</style>
 <header class="header-sticky header-absolute">
     <nav class="navbar navbar-expand-xl">
         <div class="container">
