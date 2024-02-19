@@ -3,7 +3,7 @@
 require_once './admin/config/connection.php';
 
 $koneksi = new Connection();
-$query = "SELECT * FROM kost ORDER BY id DESC LIMIT 10";
+$query = "SELECT * FROM kost ORDER BY id DESC LIMIT 6";
 $result = mysqli_query($koneksi->conn, $query);
 
 ?>
@@ -53,7 +53,7 @@ $result = mysqli_query($koneksi->conn, $query);
                             <article class="card bg-transparent h-100 p-0">
                                 <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Diswakan</div>
                                 <?php if ($data['image']) : ?>
-                                    <img src="admin/upload/<?= $data['image'] ?>" class="card-img" alt="Blog-img">
+                                    <img style="height: 300px; object-fit: cover" src="admin/upload/<?= $data['image'] ?>" class="card-img" alt="Blog-img">
                                 <?php else : ?>
                                     <img src="aset/images/blog/4by3/03.jpg" class="card-img" alt="Blog-img">
                                 <?php endif ?>
@@ -98,7 +98,7 @@ $result = mysqli_query($koneksi->conn, $query);
     <script>
         $(document).ready(function() {
             // load more
-            const limit = 10;
+            const limit = 6;
             let start = 0;
 
             $("#search").keyup(function() {

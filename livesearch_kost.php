@@ -20,7 +20,7 @@ $result = mysqli_query($koneksi, $query);
             <article class="card bg-transparent h-100 p-0">
                 <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Diswakan</div>
                 <?php if ($data['image']) : ?>
-                    <img src="admin/upload/<?= $data['image'] ?>" class="card-img" alt="Blog-img">
+                    <img style="height: 300px; object-fit: cover" src="admin/upload/<?= $data['image'] ?>" class="card-img" alt="Blog-img">
                 <?php else : ?>
                     <img src="aset/images/blog/4by3/03.jpg" class="card-img" alt="Blog-img">
                 <?php endif ?>
