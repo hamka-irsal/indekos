@@ -219,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="card card-element-hover overflow-hidden">
 
                                         <?php if (isset($kost['image'])) : ?>
-                                            <img src="admin/upload/<?= $kost['image'] ?>" class="rounded-3" alt="">
+                                            <img style="height: 300px; object-fit:cover" src="admin/upload/<?= $kost['image'] ?>" class="rounded-3" alt="">
                                         <?php endif ?>
 
                                         <div class="hover-element w-100 h-100">
