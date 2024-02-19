@@ -17,6 +17,7 @@ while ($d = mysqli_fetch_array($result)) {
         'image' => $d['image'],
         'deskripsi' => $d['deskripsi'],
         'created_at' => $d['created_at'],
+        'id' => $d['id'],
     ];
 }
 
@@ -114,6 +115,10 @@ while ($d = mysqli_fetch_array($result)) {
                                     <td>Tanggal</td>
                                     <td>:</td>
                                     <td><b><?= $location['created_at'] ?></b></td>
+                                </tr>
+
+                                <tr>
+                                    <td class='text-center' colspan='3'><a class='btn btn-sm btn-primary text-white mt-2' href='detail_kost.php?id=<?= $location['id'] ?>'>Lihat Detail</a></td>
                                 </tr>
 
                             </table>
