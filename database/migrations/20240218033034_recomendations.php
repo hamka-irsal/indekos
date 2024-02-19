@@ -23,6 +23,7 @@ final class Recomendations extends AbstractMigration
         $table->addColumn('kost_id', 'integer');
         $table->addColumn('rating', 'integer');
         $table->addColumn('nama', 'string');
+        $table->addColumn('email', 'string', ['null' => true]);
         $table->addColumn('ulasan', 'text');
         $table->addColumn('updated_at', 'datetime', ['null' => true]);
         $table->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP']);

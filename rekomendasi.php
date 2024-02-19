@@ -56,7 +56,7 @@ $result = mysqli_query($koneksi->conn, $query);
                                             <h5 class="card-title mb-3 mb-md-0"><?= $data['nama_kost'] ?></h5>
                                             <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                                             <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                                <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
+                                                <a class="icon-link icon-link-hover stretched-link" href="detail_kost.php?id=<?= $data['id'] ?>">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
                                             </div>
                                         </div>
                                     </div>
