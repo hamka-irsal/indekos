@@ -66,8 +66,9 @@ while ($d = mysqli_fetch_array($result)) {
                         </div>
 
                         <script>
-                            var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            var osm = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                             });
 
                             var map = L.map('map', {
@@ -75,7 +76,7 @@ while ($d = mysqli_fetch_array($result)) {
                                 zoom: 13,
                                 layers: [osm],
                                 minZoom: 5,
-                                maxZoom: 15,
+                                maxZoom: 18,
                             });
 
                             <?php foreach ($DataLongLat as $location) : ?>
