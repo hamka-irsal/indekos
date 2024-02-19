@@ -1,6 +1,7 @@
 <?php
 
 require '../koneksi.php';
+require '../function/helpers.php';
 
 if (isset($_GET['limit']) && isset($_GET['start'])) {
     $limit = $_GET['limit'];
@@ -24,7 +25,8 @@ $result = mysqli_query($koneksi, $query);
                     <img src="aset/images/blog/4by3/03.jpg" class="card-img" alt="Blog-img">
                 <?php endif ?>
                 <div class="card-body px-2 pb-4">
-                    <h6 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h6>
+                    <h5 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h5>
+                    <h6 class="card-title mb-2"><a href="#"><?= Helpers::money_format_idr($data['harga']) ?></a></h6>
                     <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
                     <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                 </div>

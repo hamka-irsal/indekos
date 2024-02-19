@@ -1,6 +1,8 @@
 <?php
 require_once './admin/config/connection.php';
 require_once './function/rating.php';
+require_once './function/helpers.php';
+
 $koneksi = new Connection();
 
 $id = $_GET['id'];
@@ -116,7 +118,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="col-md-7 ps-md-6">
                         <h1 class="h2 mb-4"><?= $kost['nama_kost'] ?></h1>
-                        <h5 class="h5 mb-4"><?= $kost['alamat'] ?> 📌</h5>
+                        <h5 class="h4"><?= $kost['alamat'] ?> 📌</h5>
+                        <h6 class="h6 mb-4"><?= Helpers::money_format_idr($kost['harga']) ?></h6>
 
                         <div class="d-flex align-items-center flex-wrap mb-4">
                             <ul class="list-inline mb-0">

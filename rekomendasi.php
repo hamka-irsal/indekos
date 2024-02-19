@@ -2,6 +2,7 @@
 
 require_once './admin/config/connection.php';
 require_once './function/rating.php';
+require_once './function/helpers.php';
 
 $koneksi = new Connection();
 $query = "SELECT k.*
@@ -74,7 +75,8 @@ $result = mysqli_query($koneksi->conn, $query);
                                     <div class="col-md-8">
                                         <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
                                             <div><span class="badge text-bg-dark mb-3">Disewakan</span></div>
-                                            <h5 class="card-title mb-3 mb-md-0"><?= $data['nama_kost'] ?></h5>
+                                            <h5 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h5>
+                                            <h6 class="card-title mb-2"><a href="#"><?= Helpers::money_format_idr($data['harga']) ?></a></h6>
                                             <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
 
                                             <div class="d-flex align-items-center flex-wrap mb-2">
