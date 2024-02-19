@@ -1,6 +1,7 @@
 <?php
 
 require_once './admin/config/connection.php';
+require_once './function/rating.php';
 
 $koneksi = new Connection();
 $query = "SELECT * FROM kost";
@@ -81,6 +82,16 @@ while ($d = mysqli_fetch_array($result)) {
 
                             <?php foreach ($DataLongLat as $location) : ?>
 
+                                <?php
+                                $ratings = new Rating();
+
+                                $rating = $ratings->getRating($location['id']);
+
+                                $avarageRating =  $rating['avarage'];
+                                $avarageFloor = $rating['floor'];
+                                $totalRating = $rating['total'];
+                                ?>
+
                                 var link = `<table cellpadding="5">
                                 <tr>
                                     <td class="text-center" colspan="3"><img class="rounded mb-2" style="width: 150px; height: 150px; object-fit: cover" src='./admin/upload/<?= $location['image'] ?>' alt='image'/></td>
@@ -105,11 +116,23 @@ while ($d = mysqli_fetch_array($result)) {
                                     <td><b><?= $location['deskripsi'] ?></b></td>
                                 </tr>
 
-                                <tr>
-                                    <td>Tanggal</td>
-                                    <td>:</td>
-                                    <td><b><?= $location['created_at'] ?></b></td>
-                                </tr>
+                                <tr><td colspan='3' class='text-center'><ul class="list-inline mb-0">
+
+                                <?php for ($i = 0; $i < $avarageFloor; $i++) : ?>
+                                    <li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+                                <?php endfor ?>
+
+                                <?php
+                                $bagian = explode('.', $avarageRating);
+                                ?>
+
+                                <?php if (isset($bagian[1]) && $bagian[1] > 0) : ?>
+                                    <li class="list-inline-item me-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                <?php endif ?>
+
+                                <li class="list-inline-item me-0 heading-color fw-normal">(<?= $avarageRating ?>) <small class="ms-2">dari <?= $totalRating ?> user</small></li>
+
+                                </ul></td></tr>
 
                                 <tr>
                                     <td class='text-center' colspan='3'><a class='btn btn-sm btn-primary text-white mt-2' href='detail_kost.php?id=<?= $location['id'] ?>'>Lihat Detail</a></td>
