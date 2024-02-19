@@ -5,6 +5,7 @@ require_once './admin/config/connection.php';
 $koneksi = new Connection();
 $query = "SELECT * FROM kost ORDER BY id DESC";
 $result = mysqli_query($koneksi->conn, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -33,19 +34,18 @@ $result = mysqli_query($koneksi->conn, $query);
                         Cari Kost Kamu Sekarang!
                     </h1>
 
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                    <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Cari Kost Sekarang">
+                            <input id="search" value="" class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Cari Kost Sekarang">
                             <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Cari Kost</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section class="pt-0">
-            <div class="container">
-
+            <div class="container" id="output">
                 <div class="row g-4 g-sm-5 g-xl-7 mt-0">
 
                     <?php while ($data = mysqli_fetch_array($result)) : ?>
@@ -70,11 +70,6 @@ $result = mysqli_query($koneksi->conn, $query);
                     <?php endwhile ?>
 
                 </div>
-                <div class="row mt-7">
-                    <div class="col-12 mx-auto">
-
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -91,6 +86,35 @@ $result = mysqli_query($koneksi->conn, $query);
 
     <!-- Theme Functions -->
     <script src="aset/js/functions.js"></script>
+
+    <script src="js/jquery.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#search").keyup(function() {
+                var query = $(this).val();
+                if (query != "") {
+                    $.ajax({
+                        url: `livesearch_kost.php?query=${query}`,
+                        method: 'GET',
+                        success: function(data) {
+                            $('#output').html(data);
+
+                            $('#output').css('display', 'block');
+
+                            $("#search").focusout(function() {
+                                $('#output').css('display', 'none');
+                            });
+
+                            $("#search").focusin(function() {
+                                $('#output').css('display', 'block');
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 
