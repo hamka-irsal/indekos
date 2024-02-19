@@ -161,9 +161,11 @@ class View extends Connection
     $no = 0;
 
     while ($d = mysqli_fetch_array($result)) {
+      $gambar = $d['image'];
       $no++;
       echo "<tr>";
       echo "<td class='text-center'>" . $no . "</td>";
+      echo "<td class='text-center d-flex justify-content-center'>" . "<div class='rounded' style='width: 50px; height: 50px; overflow: hidden'><img style='widht: 50px; height: 50px; object-fit: cover' src='upload/$gambar' alt='$gambar'></div>" . "</td>";
       echo "<td>" . $d['nama_kost'] . "</td>";
       echo "<td>" . $d['deskripsi'] . "</td>";
       echo "<td>" . $d['alamat'] . "</td>";

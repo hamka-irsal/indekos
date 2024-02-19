@@ -66,12 +66,22 @@
                                             <input name="deskripsi" class="form-control" id="deskripsi" type="text" value="<?php echo $data['deskripsi']; ?>" required />
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label class="col-lg-6 col-12 control-label">Harga</label>
                                         <div class="col-lg-6 col-12">
                                             <input name="harga" class="form-control" type="text" id="harga" type="text" value="<?php echo $data['harga']; ?>" required />
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-4 control-label">Gambar</label>
+                                        <div class="col-sm-6">
+                                            <input name="gambar" class="form-control" type="file" placeholder="Gambar" />
+                                            <small>abaikan jika tidak ingin mengubah</small>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-lg-6 col-12 control-label">Latitude</label>
                                         <div class="col-lg-6 col-12">
