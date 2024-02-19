@@ -75,7 +75,7 @@ $result = mysqli_query($koneksi->conn, $query);
                   <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                 </div>
                 <div class="card-footer bg-transparent d-flex justify-content-between px-2 py-0">
-                  <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
+                  <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
                 </div>
               </article>
             </div>
