@@ -1,4 +1,4 @@
-<footer class="bg-dark position-relative overflow-hidden pb-0 pt-6 pt-lg-8" data-bs-theme="dark">
+<footer class="bg-dark position-relative overflow-hidden pb-0 pt-3 pt-lg-8" data-bs-theme="dark">
 
     <figure class="position-absolute top-0 start-0 mt-n8 ms-n9">
         <svg class="fill-mode" width="775px" height="834px" viewBox="0 0 775 834" style="enable-background:new 0 0 775 834; opacity: 0.05;" xml:space="preserve">
@@ -15,17 +15,16 @@
         </svg>
     </figure>
 
-    <div class="position-absolute top-0 end-0 mt-n3 me-n4">
+    <div class="position-absolute top-0 end-0  me-n4">
         <img src="assets/images/elements/decoration-pattern-2.svg" style="opacity:0.05;" alt="">
     </div>
 
-    <div class="container position-relative mt-5">
+    <div class="container position-relative">
         <div class="row g-4 justify-content-between">
 
             <div class="col-lg-3">
                 <a class="me-0" href="index-2.html">
-                    <img class="light-mode-item h-40px" src="assets/images/logo.svg" alt="logo">
-                    <img class="dark-mode-item h-40px" src="assets/images/logo-light.svg" alt="logo">
+                    <img width="300px" src="admin/img/logo_indekost.svg" alt="logo">
                 </a>
 
                 <p class="mt-4 mb-2">Solusi pencarian kost untuk kalian yang ingin mencari penginapan kost-kosan kec. tamanlanrea</p>

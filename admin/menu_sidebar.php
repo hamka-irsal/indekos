@@ -1,11 +1,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon ">
-            <img class="rounded-circle" src="img/Indekosta.png" width="45px" height="45px" alt="...">
+        <div class="sidebar-brand-icon">
+            <img class="px-4" width="250px" src="img/logo_indekost.svg" alt="logo">
         </div>
-        <div class="sidebar-brand-text mx-3">INDEKOS</div>
-
     </a>
 
     <hr class="sidebar-divider my-0">

@@ -74,8 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-sm-10 col-lg-5 d-flex m-auto vh-100">
                 <div class="row w-100 m-auto">
                     <div class="col-sm-10 my-5 m-auto">
-
-                        <a href="index-2.html"><img src="aset/images/logo-icon.svg" class="h-50px mb-4" alt="logo"></a>
+                        <div class="row text-center mb-5">
+                            <a href="index.php"><img width="350px" src="admin/img/logo_indekost.svg" alt="logo"></a>
+                        </div>
 
                         <h2 class="mb-0">Selamat datang</h2>
                         <p class="mb-0">Selamat datang, silah kan isi data admin</p>

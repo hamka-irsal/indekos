@@ -7,7 +7,7 @@
     <nav class="navbar navbar-expand-xl">
         <div class="container">
             <a class="navbar-brand me-0" href="index.php">
-                <img width="300px" class="navbar-brand-item" src="aset/images/IndeKosta.png" alt="logo">
+                <img width="250px" src="admin/img/logo_indekost.svg" alt="logo">
             </a>
 
             <div class="navbar-collapse collapse" id="navbarCollapse">

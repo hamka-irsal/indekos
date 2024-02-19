@@ -66,7 +66,8 @@
     </script>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="aset/images/favicon.ico">
+    <link rel="icon" href="admin/img/Indekosta.png">
+
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
