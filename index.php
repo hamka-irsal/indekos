@@ -42,7 +42,7 @@ $result = mysqli_query($koneksi->conn, $query);
 
             <?php include('./components/figure/figureTwo.php') ?>
 
-            <img src="aset/images/bg/01.jpg" class="rounded" alt="hero-img">
+            <img src="aset/images/bg/001.png" class="rounded" alt="hero-img">
 
           </div>
         </div>
