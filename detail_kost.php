@@ -8,7 +8,6 @@ $query = "SELECT * FROM kost WHERE id='$id'";
 $result = mysqli_query($koneksi->conn, $query);
 
 $kost = mysqli_fetch_assoc($result);
-
 $query = "SELECT * FROM recomendations WHERE kost_id='$id'";
 $recomendations = mysqli_query($koneksi->conn, $query);
 
@@ -96,14 +95,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <a class="w-100 h-100" data-glightbox data-gallery="gallery" href="aset/images/shop/review/01.jpg">
-                                        <div class="card card-element-hover overflow-hidden">
-                                            <img src="aset/images/shop/review/06.jpg" class="rounded-3" alt="">
-                                            <div class="hover-element w-100 h-100">
-                                                <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    <div class="panel panel-info panel-dashboard">
+                                            <div id="map" style="width:100%;height:380px;">
+
+                                                <div class="row align-items-center" style="margin-left: 95px;">
+                                                    <script>
+                                                        var DataLongLat = [-5.155978984099238, 119.40353393554689];
+                                                        var map = L.map('map').setView(DataLongLat, 16);
+                                                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                                                        L.marker(DataLongLat).addTo(map)
+                                                            .bindPopup("Hellow World")
+                                                            .openPopup();
+                                                    </script>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

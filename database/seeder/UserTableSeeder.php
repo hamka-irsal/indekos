@@ -20,21 +20,21 @@ class UserTableSeeder extends AbstractSeed
             [
                 'nama' => "Muhammad Bintang",
                 'username' => "BintangKun",
-                'email' => 'muhbintang650@gmail.com',
+                'email' => 'muhbintang65@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
                 'password' => password_hash('bintang123', PASSWORD_DEFAULT)
             ],
             [
                 'nama' => "Fery Fadul",
                 'username' => "FeryAdmin",
-                'email' => 'feryfadul@gmail.com',
+                'email' => 'fery@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
                 'password' => password_hash('fery123', PASSWORD_DEFAULT)
             ],
             [
                 'nama' => "Hamka",
                 'username' => "HamkaAdmin",
-                'email' => 'hamka@gmail.com',
+                'email' => 'hamkairsal@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
                 'password' => password_hash('hamka123', PASSWORD_DEFAULT)
             ],

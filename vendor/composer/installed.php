@@ -3,7 +3,7 @@
         'name' => 'ryoogen/indekos',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '087d430850ffd4219a66117df8426356e79a8e0c',
+        'reference' => 'f76cc3bb956958f3c980146ff0a5da6f24f7e056',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -122,7 +122,7 @@
         'ryoogen/indekos' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '087d430850ffd4219a66117df8426356e79a8e0c',
+            'reference' => 'f76cc3bb956958f3c980146ff0a5da6f24f7e056',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
