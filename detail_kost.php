@@ -9,7 +9,7 @@ $query = "SELECT * FROM kost WHERE id='$id'";
 $result = mysqli_query($koneksi->conn, $query);
 $kost = mysqli_fetch_assoc($result);
 
-$query = "SELECT * FROM recomendations WHERE kost_id='$id' LIMIT 5";
+$query = "SELECT * FROM recomendations WHERE kost_id='$id' ORDER BY id DESC LIMIT 5";
 $recomendations = mysqli_query($koneksi->conn, $query);
 
 $ratings = new Rating();
@@ -37,8 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ulasan = $_POST['ulasan'];
     $rating = $_POST['rating'];
 
-    mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
-    header("location:detail_kost.php?id=$id");
+    $check = mysqli_query($koneksi, "select * from recomendations where email='$email'");
+    $check = mysqli_fetch_assoc($check);
+
+    if (isset($check['email'])) {
+        echo "<script>alert('Email telah dipakai coba dengan email lain!'); window.location = 'detail_kost.php?id=$id'</script>";
+    } else {
+        mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
+        header("location:detail_kost.php?id=$id");
+    }
 }
 ?>
 
