@@ -21,6 +21,7 @@ final class Kost extends AbstractMigration
     {
         $table = $this->table('kost');
         $table->addColumn('nama_kost', 'string');
+        $table->addColumn('image', 'string');
         $table->addColumn('alamat', 'text');
         $table->addColumn('deskripsi', 'text');
         $table->addColumn('harga', 'integer');

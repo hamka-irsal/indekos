@@ -62,6 +62,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 col-sm-4 control-label">Gambar</label>
+                                    <div class="col-sm-6">
+                                        <input name="gambar" class="form-control" type="file" placeholder="Gambar" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 col-sm-4 control-label">Latitude</label>
                                     <div class="col-sm-6">
                                         <input name="latitude" class="form-control" type="text" placeholder="-7.3811577" required />
