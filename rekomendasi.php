@@ -44,7 +44,11 @@ $result = mysqli_query($koneksi->conn, $query);
                             <article class="card card-hover-shadow border p-3 mb-4">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <img src="aset/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
+                                        <?php if (isset($data['image'])) : ?>
+                                            <img style="height: 200px; object-fit: cover" src="admin/upload/<?= $data['image'] ?>" class="img-fluid card-img" alt="blog-img">
+                                        <?php else : ?>
+                                            <img src="aset/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
+                                        <?php endif ?>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
