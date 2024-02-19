@@ -2,8 +2,13 @@
 
 session_start();
 
-require_once './helpers/Ryoogen.php';
-require_once './helpers/HomeChart.php';
+if ($_SERVER['SCRIPT_NAME'] == "/indekos/login.php") {
+  require_once './admin/helpers/Ryoogen.php';
+  require_once './admin/helpers/HomeChart.php';
+} else {
+  require_once './helpers/Ryoogen.php';
+  require_once './helpers/HomeChart.php';
+}
 
 
 class Connection

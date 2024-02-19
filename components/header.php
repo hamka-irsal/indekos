@@ -20,7 +20,7 @@
             </div>
             <ul class="nav align-items-center dropdown-hover ms-sm-2">
                 <li class="nav-item d-none d-sm-block">
-                    <a class="btn btn-sm btn-primary mb-0" href="admin/login.php">Login Admin</a>
+                    <a class="btn btn-sm btn-primary mb-0" href="login.php">Login Admin</a>
                 </li>
                 <li class="nav-item">
                     <button class="navbar-toggler ms-sm-3 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
