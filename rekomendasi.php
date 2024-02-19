@@ -1,10 +1,20 @@
 <?php
 
 require_once './admin/config/connection.php';
+require_once './function/rating.php';
 
 $koneksi = new Connection();
-$query = "SELECT * FROM kost ORDER BY id DESC";
+$query = "SELECT k.*
+FROM kost k
+INNER JOIN (
+    SELECT kost_id, MAX(rating) AS max_rating
+    FROM recomendations
+    GROUP BY kost_id
+) r ON k.id = r.kost_id
+ORDER BY r.max_rating DESC";
+
 $result = mysqli_query($koneksi->conn, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -36,16 +46,27 @@ $result = mysqli_query($koneksi->conn, $query);
         </section>
 
         <section class="pt-0 ">
-            <div class="container">
+            <div class="container" id="output">
                 <div class="row g-xl-7 justify-content-center">
                     <div class="col-lg-8">
 
                         <?php while ($data = mysqli_fetch_array($result)) : ?>
+
+                            <?php
+                            $ratings = new Rating();
+
+                            $rating = $ratings->getRating($data['id']);
+
+                            $avarageRating =  $rating['avarage'];
+                            $avarageFloor = $rating['floor'];
+                            $totalRating = $rating['total'];
+                            ?>
+
                             <article class="card card-hover-shadow border p-3 mb-4">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <?php if (isset($data['image'])) : ?>
-                                            <img style="height: 200px; object-fit: cover" src="admin/upload/<?= $data['image'] ?>" class="img-fluid card-img" alt="blog-img">
+                                            <img style="height: 230px; object-fit: cover" src="admin/upload/<?= $data['image'] ?>" class="img-fluid card-img" alt="blog-img">
                                         <?php else : ?>
                                             <img src="aset/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
                                         <?php endif ?>
@@ -55,6 +76,27 @@ $result = mysqli_query($koneksi->conn, $query);
                                             <div><span class="badge text-bg-dark mb-3">Disewakan</span></div>
                                             <h5 class="card-title mb-3 mb-md-0"><?= $data['nama_kost'] ?></h5>
                                             <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
+
+                                            <div class="d-flex align-items-center flex-wrap mb-2">
+                                                <ul class="list-inline mb-0">
+
+                                                    <?php for ($i = 0; $i < $avarageFloor; $i++) : ?>
+                                                        <li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
+                                                    <?php endfor ?>
+
+                                                    <?php
+                                                    $bagian = explode('.', $avarageRating);
+                                                    ?>
+
+                                                    <?php if (isset($bagian[1]) && $bagian[1] > 0) : ?>
+                                                        <li class="list-inline-item me-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                                    <?php endif ?>
+
+                                                    <li class="list-inline-item me-0 heading-color fw-normal">(<?= $avarageRating ?>) <small class="ms-2">dari <?= $totalRating ?> user</small></li>
+
+                                                </ul>
+                                            </div>
+
                                             <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                                             <div class="d-sm-flex justify-content-between align-items-center mt-auto mt-2">
                                                 <a class="icon-link icon-link-hover stretched-link mt-2" href="detail_kost.php?id=<?= $data['id'] ?>">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
@@ -65,34 +107,12 @@ $result = mysqli_query($koneksi->conn, $query);
                             </article>
                         <?php endwhile ?>
                     </div>
+                </div>
+            </div>
 
-                    <div class="col-12 mt-6">
-                        <ul class="pagination pagination-primary-soft d-flex justify-content-sm-between flex-wrap mb-0">
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">..</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">22</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">23</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="row mt-7">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <a href="" id="load_more" class="btn btn-primary mb-0">Load More</a>
                 </div>
             </div>
         </section>
@@ -110,6 +130,44 @@ $result = mysqli_query($koneksi->conn, $query);
 
     <!-- Theme Functions -->
     <script src="aset/js/functions.js"></script>
+
+    <script src="js/jquery.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // load more
+            const limit = 10;
+            let start = 0;
+
+            $("#load_more").click((e) => {
+                e.preventDefault();
+
+                start = start + limit;
+
+                $.ajax({
+                    url: `load/load_recomendation.php`,
+                    method: 'GET',
+                    data: {
+                        limit: limit,
+                        start: start,
+                    },
+                    success: function(data) {
+                        $('#output').html(data);
+
+                        $('#output').css('display', 'block');
+
+                        $("#search").focusout(function() {
+                            $('#output').css('display', 'none');
+                        });
+
+                        $("#search").focusin(function() {
+                            $('#output').css('display', 'block');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

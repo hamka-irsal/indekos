@@ -83,11 +83,13 @@ $result = mysqli_query($koneksi->conn, $query);
           <?php endwhile ?>
 
         </div>
-        <div class="row mt-7">
-          <div class="col-12 mx-auto">
 
+        <div class="row mt-7">
+          <div class="col-12 mx-auto d-flex justify-content-center">
+            <a href="cari_kost.php" class="btn btn-primary mb-0">Kost Lainnya <i class="bi fa-fw bi-arrow-right ms-2"></i></a>
           </div>
         </div>
+
       </div>
     </section>
   </main>
