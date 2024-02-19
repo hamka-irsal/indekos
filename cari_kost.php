@@ -3,7 +3,7 @@
 require_once './admin/config/connection.php';
 
 $koneksi = new Connection();
-$query = "SELECT * FROM kost ORDER BY id DESC";
+$query = "SELECT * FROM kost ORDER BY id DESC LIMIT 10";
 $result = mysqli_query($koneksi->conn, $query);
 
 ?>
@@ -71,6 +71,12 @@ $result = mysqli_query($koneksi->conn, $query);
 
                 </div>
             </div>
+
+            <div class="row mt-7">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <a href="" id="load_more" class="btn btn-primary mb-0">Load More</a>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -91,6 +97,10 @@ $result = mysqli_query($koneksi->conn, $query);
 
     <script>
         $(document).ready(function() {
+            // load more
+            const limit = 10;
+            let start = 0;
+
             $("#search").keyup(function() {
                 var query = $(this).val();
                 if (query != "") {
@@ -112,6 +122,34 @@ $result = mysqli_query($koneksi->conn, $query);
                         }
                     });
                 }
+            });
+
+            $("#load_more").click((e) => {
+                e.preventDefault();
+
+                start = start + limit;
+
+                $.ajax({
+                    url: `load/load_kost.php`,
+                    method: 'GET',
+                    data: {
+                        limit: limit,
+                        start: start,
+                    },
+                    success: function(data) {
+                        $('#output').html(data);
+
+                        $('#output').css('display', 'block');
+
+                        $("#search").focusout(function() {
+                            $('#output').css('display', 'none');
+                        });
+
+                        $("#search").focusin(function() {
+                            $('#output').css('display', 'block');
+                        });
+                    }
+                });
             });
         });
     </script>

@@ -8,7 +8,7 @@ $query = "SELECT * FROM kost WHERE id='$id'";
 $result = mysqli_query($koneksi->conn, $query);
 
 $kost = mysqli_fetch_assoc($result);
-$query = "SELECT * FROM recomendations WHERE kost_id='$id'";
+$query = "SELECT * FROM recomendations WHERE kost_id='$id' LIMIT 5";
 $recomendations = mysqli_query($koneksi->conn, $query);
 
 $query = "SELECT rating FROM recomendations WHERE kost_id='$id'";
@@ -96,19 +96,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="panel panel-info panel-dashboard">
-                                            <div id="map" style="width:100%;height:380px;">
+                                        <div id="map" style="width:100%;height:380px;">
 
-                                                <div class="row align-items-center" style="margin-left: 95px;">
-                                                    <script>
-                                                        var DataLongLat = [-5.155978984099238, 119.40353393554689];
-                                                        var map = L.map('map').setView(DataLongLat, 16);
-                                                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-                                                        L.marker(DataLongLat).addTo(map)
-                                                            .bindPopup("Hellow World")
-                                                            .openPopup();
-                                                    </script>
-                                                </div>
+                                            <div class="row align-items-center" style="margin-left: 95px;">
+                                                <script>
+                                                    var DataLongLat = [-5.155978984099238, 119.40353393554689];
+                                                    var map = L.map('map').setView(DataLongLat, 16);
+                                                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                                                    L.marker(DataLongLat).addTo(map)
+                                                        .bindPopup("Hellow World")
+                                                        .openPopup();
+                                                </script>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -234,35 +234,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="col-lg-7">
+                        <div id="output">
+                            <?php while ($data = mysqli_fetch_assoc($recomendations)) : ?>
+                                <hr>
 
-                        <?php while ($data = mysqli_fetch_assoc($recomendations)) : ?>
-                            <hr>
+                                <div class="d-flex">
 
-                            <div class="d-flex">
+                                    <?php if (isset($data['email'])) : ?>
+                                        <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar/'<?php md5(strtolower(trim($data['email']))) ?>?s=1024" alt="avatar">
+                                    <?php else : ?>
+                                        <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar?s=1024" alt="avatar">
+                                    <?php endif ?>
 
-                                <?php if (isset($data['email'])) : ?>
-                                    <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar/'<?php md5(strtolower(trim($data['email']))) ?>?s=1024" alt="avatar">
-                                <?php else : ?>
-                                    <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar?s=1024" alt="avatar">
-                                <?php endif ?>
-
-                                <div>
                                     <div>
-                                        <h6 class="m-0"><?= $data['nama'] ?></h6>
-                                        <span class="me-3 small"><?= $data['created_at'] ?></span>
+                                        <div>
+                                            <h6 class="m-0"><?= $data['nama'] ?></h6>
+                                            <span class="me-3 small"><?= $data['created_at'] ?></span>
+                                        </div>
+                                        <ul class="list-inline">
+
+                                            <?php for ($i = 0; $i <  (int) $data['rating']; $i++) : ?>
+                                                <li class="list-inline-item small me-0"><i class="fas fa-star text-warning"></i></li>
+                                            <?php endfor ?>
+
+                                        </ul>
+
+                                        <p><?= $data['ulasan'] ?></p>
                                     </div>
-                                    <ul class="list-inline">
-
-                                        <?php for ($i = 0; $i <  (int) $data['rating']; $i++) : ?>
-                                            <li class="list-inline-item small me-0"><i class="fas fa-star text-warning"></i></li>
-                                        <?php endfor ?>
-
-                                    </ul>
-
-                                    <p><?= $data['ulasan'] ?></p>
                                 </div>
+                            <?php endwhile ?>
+                        </div>
+
+                        <div class="row my-5">
+                            <div class="col-12 mx-auto d-flex justify-content-center">
+                                <a href="" id="load_more" class="btn btn-primary-soft mb-0">Komentar Lainnya</a>
                             </div>
-                        <?php endwhile ?>
+                        </div>
 
                         <hr class="my-3">
 
@@ -300,6 +307,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Theme Functions -->
         <script src="aset/js/functions.js"></script>
+
+        <script src="js/jquery.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                // load more
+                const limit = 5;
+                let start = 0;
+
+                $("#load_more").click((e) => {
+                    e.preventDefault();
+
+                    start = start + limit;
+
+                    $.ajax({
+                        url: `load/load_ulasan.php`,
+                        method: 'GET',
+                        data: {
+                            limit: limit,
+                            start: start,
+                            id: <?= $id ?>
+                        },
+                        success: function(data) {
+                            $('#output').html(data);
+
+                            $('#output').css('display', 'block');
+
+                            $("#search").focusout(function() {
+                                $('#output').css('display', 'none');
+                            });
+
+                            $("#search").focusin(function() {
+                                $('#output').css('display', 'block');
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>
