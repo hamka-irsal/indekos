@@ -6,15 +6,20 @@ $koneksi = new Connection();
 $query = "SELECT * FROM kost";
 $result = mysqli_query($koneksi->conn, $query);
 
-$DataLongLat = array();
+$DataLongLat = [];
 
 while ($d = mysqli_fetch_array($result)) {
-    $DataLongLat[] = array(
+    $DataLongLat[] = [
         'latitude' => $d['latitude'],
         'longitude' => $d['longitude'],
-        'nama_kost' => $d['nama_kost']
-    );
+        'nama_kost' => $d['nama_kost'],
+        'alamat' => $d['alamat'],
+        'image' => $d['image'],
+        'deskripsi' => $d['deskripsi'],
+        'created_at' => $d['created_at'],
+    ];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +33,7 @@ while ($d = mysqli_fetch_array($result)) {
         }
     </style>
 </head>
+
 <?php include('./layouts/base.php') ?>
 
 <body>
@@ -50,12 +56,12 @@ while ($d = mysqli_fetch_array($result)) {
                         Cari Lokasi Kost Kamu.
                     </h1>
 
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                    <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Cari Kost Sekarang">
+                            <input id="search" value="" class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Cari Kost Sekarang">
                             <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Cari Kost</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
             <div class="container mt-6">
@@ -64,25 +70,60 @@ while ($d = mysqli_fetch_array($result)) {
                         <div class="row">
                             <div class="col-12" id="map"></div>
                         </div>
+
                         <script>
                             var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                             });
 
                             var map = L.map('map', {
-                                center: [<?php echo $DataLongLat[0]['latitude']; ?>, <?php echo $DataLongLat[0]['longitude']; ?>],
+                                center: [<?= $DataLongLat[0]['latitude']; ?>, <?= $DataLongLat[0]['longitude']; ?>],
                                 zoom: 10,
                                 layers: [osm],
                                 minZoom: 5,
                                 maxZoom: 15,
                             });
+
                             <?php foreach ($DataLongLat as $location) : ?>
-                                var nama_kost = "<?php echo $location['nama_kost']; ?>";
-                                var datLongLat = [<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>];
+
+                                var link = `<table cellpadding="5">
+                                <tr>
+                                    <td class="text-center" colspan="3"><img class="rounded mb-2" style="width: 150px; height: 150px; object-fit: cover" src='./admin/upload/<?= $location['image'] ?>' alt='image'/></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td><b><?= $location['nama_kost'] ?></b></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>:</td>
+                                    <td>
+                                        <b><?= $location['alamat'] ?></b>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Deskripsi</td>
+                                    <td>:</td>
+                                    <td><b><?= $location['deskripsi'] ?></b></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Tanggal</td>
+                                    <td>:</td>
+                                    <td><b><?= $location['created_at'] ?></b></td>
+                                </tr>
+
+                            </table>
+                            `
+                                var nama_kost = "<?= $location['nama_kost']; ?>";
+                                var datLongLat = [<?= $location['latitude']; ?>, <?= $location['longitude']; ?>];
                                 var marker = L.marker(datLongLat).addTo(map)
-                                    .bindPopup(nama_kost)
-                                    .openPopup();
+                                    .bindPopup(link);
                             <?php endforeach; ?>
+
                             var searchControl = L.esri.Geocoding.geosearch().addTo(map);
                             var results = L.layerGroup().addTo(map);
 
