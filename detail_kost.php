@@ -49,7 +49,13 @@ while ($d = mysqli_fetch_assoc($rating)) {
     }
 }
 
-$avarageRating =  floor($jumlahRating / $totalRating);
+if ($jumlahRating && $totalRating) {
+    $avarageRating =  round($jumlahRating / $totalRating, 1);
+    $avarageFloor = floor($jumlahRating / $totalRating);
+} else {
+    $avarageRating =  0;
+    $avarageFloor = 0;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -105,15 +111,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="col-md-7 ps-md-6">
                         <h1 class="h2 mb-4"><?= $kost['nama_kost'] ?></h1>
+                        <h5 class="h5 mb-4"><?= $kost['alamat'] ?> 📌</h5>
 
                         <div class="d-flex align-items-center flex-wrap mb-4">
                             <ul class="list-inline mb-0">
 
-                                <?php for ($i = 0; $i < $avarageRating; $i++) : ?>
+                                <?php for ($i = 0; $i < $avarageFloor; $i++) : ?>
                                     <li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
                                 <?php endfor ?>
 
+                                <?php
+                                $bagian = explode('.', $avarageRating);
+                                ?>
+
+                                <?php if (isset($bagian[1]) && $bagian[1] > 0) : ?>
+                                    <li class="list-inline-item me-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                <?php endif ?>
+
                                 <li class="list-inline-item me-0 heading-color fw-normal">(<?= $avarageRating ?>)</li>
+
                             </ul>
                         </div>
 
@@ -127,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="container">
                 <h2 class="h4 mb-5">Rating & review</h2>
 
-                <div class="row">
+                <div class="row sticky">
                     <div class="col-lg-5 pe-lg-5 mb-5 mb-lg-0 mt-3">
                         <div class="border rounded-2 p-4">
                             <div class="row">
@@ -135,9 +151,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <h2 class="mb-0"><?= $avarageRating ?></h2>
                                     <ul class="list-inline mb-2">
 
-                                        <?php for ($i = 0; $i < $avarageRating; $i++) : ?>
+                                        <?php for ($i = 0; $i < $avarageFloor; $i++) : ?>
                                             <li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i></li>
                                         <?php endfor ?>
+                                        <?php
+                                        $bagian = explode('.', $avarageRating);
+                                        ?>
+                                        <?php if (isset($bagian[1]) && $bagian[1] > 0) : ?>
+                                            <li class="list-inline-item me-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                        <?php endif ?>
 
                                     </ul>
                                     <p class="mb-2">Total ulasan <?= $totalRating ?></p>
@@ -198,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="hover-element w-100 h-100">
                                             <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -205,30 +228,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="col-lg-7">
+
                         <?php while ($data = mysqli_fetch_assoc($recomendations)) : ?>
                             <hr>
 
                             <div class="d-flex">
+
                                 <?php if (isset($data['email'])) : ?>
                                     <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar/'<?php md5(strtolower(trim($data['email']))) ?>?s=1024" alt="avatar">
                                 <?php else : ?>
                                     <img class="avatar avatar-md rounded-circle float-start me-3" src="https://gravatar.com/avatar?s=1024" alt="avatar">
                                 <?php endif ?>
+
                                 <div>
                                     <div>
                                         <h6 class="m-0"><?= $data['nama'] ?></h6>
                                         <span class="me-3 small"><?= $data['created_at'] ?></span>
                                     </div>
                                     <ul class="list-inline">
+
                                         <?php for ($i = 0; $i <  (int) $data['rating']; $i++) : ?>
                                             <li class="list-inline-item small me-0"><i class="fas fa-star text-warning"></i></li>
                                         <?php endfor ?>
+
                                     </ul>
+
                                     <p><?= $data['ulasan'] ?></p>
                                 </div>
                             </div>
                         <?php endwhile ?>
+
                         <hr class="my-3">
+
                         <div class="card mt-5">
                             <form action="" method="post" enctype="multipart/form-data">
                                 <select name="rating" class="form-select mb-3" aria-label="Default select example">
@@ -250,41 +281,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
 
         <?php include('./components/footer.php') ?>
-
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
-            <div class="offcanvas-header justify-content-between border-bottom px-3">
-                <h5 class="mb-0">Your Cart</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body d-flex flex-column px-3">
-                <div class="row g-3">
-                    <div class="col-4">
-                        <img class="rounded-2 bg-light p-2" src="aset/images/shop/02.png" alt="avatar">
-                    </div>
-                    <div class="col-8">
-                        <p class="heading-color fw-semibold mb-1">Round neck cotton t-shirt</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <select name="rating" class="form-select form-select-sm w-auto" aria-label="Default select example">
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                            </select>
-
-                            <a href="#" class="btn btn-sm btn-link p-0">Remove</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-auto">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="heading-color fw-semibold">Subtotal</span>
-                        <h6 class="text-success mb-0">$103</h6>
-                    </div>
-                    <div class="d-grid">
-                        <a href="checkout.html" class="btn btn-lg btn-dark mb-0">Continue to Checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Back to top -->
         <div class="back-top"></div>

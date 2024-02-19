@@ -54,9 +54,10 @@ $result = mysqli_query($koneksi->conn, $query);
                                         <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
                                             <div><span class="badge text-bg-dark mb-3">Disewakan</span></div>
                                             <h5 class="card-title mb-3 mb-md-0"><?= $data['nama_kost'] ?></h5>
+                                            <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
                                             <p class="small mb-0"><?= $data['deskripsi'] ?></p>
-                                            <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                                <a class="icon-link icon-link-hover stretched-link" href="detail_kost.php?id=<?= $data['id'] ?>">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
+                                            <div class="d-sm-flex justify-content-between align-items-center mt-auto mt-2">
+                                                <a class="icon-link icon-link-hover stretched-link mt-2" href="detail_kost.php?id=<?= $data['id'] ?>">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
                                             </div>
                                         </div>
                                     </div>

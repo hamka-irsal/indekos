@@ -72,6 +72,7 @@ $result = mysqli_query($koneksi->conn, $query);
 
                 <div class="card-body px-2 pb-4">
                   <h6 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h6>
+                  <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
                   <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                 </div>
                 <div class="card-footer bg-transparent d-flex justify-content-between px-2 py-0">

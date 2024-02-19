@@ -59,9 +59,10 @@ $result = mysqli_query($koneksi->conn, $query);
                                 <?php endif ?>
                                 <div class="card-body px-2 pb-4">
                                     <h6 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h6>
+                                    <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
                                     <p class="small mb-0"><?= $data['deskripsi'] ?></p>
                                 </div>
-                                <div class="card-footer bg-transparent d-flex justify-content-between px-2 py-0">
+                                <div class="card-footer bg-transparent d-flex justify-content-between px-2 py-0 mt-2">
                                     <a class="icon-link icon-link-hover stretched-link" href="detail_kost.php?id=<?= $data['id'] ?>">Lihat Kost<i class="bi bi-arrow-right"></i> </a>
                                 </div>
                             </article>
