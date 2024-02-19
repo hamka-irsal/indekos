@@ -9,23 +9,24 @@ $result = mysqli_query($koneksi->conn, $query);
 $DataLongLat = array();
 
 while ($d = mysqli_fetch_array($result)) {
-  $DataLongLat[] = array(
-    'latitude' => $d['latitude'],
-    'longitude' => $d['longitude'],
-    'nama_kost' => $d['nama_kost']
-  );
+    $DataLongLat[] = array(
+        'latitude' => $d['latitude'],
+        'longitude' => $d['longitude'],
+        'nama_kost' => $d['nama_kost']
+    );
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<style>
-		#map {
-			height: 500px;
-			width: 100%;
-		}
-	</style>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
 </head>
 <?php include('./layouts/base.php') ?>
 
@@ -52,41 +53,42 @@ while ($d = mysqli_fetch_array($result)) {
             </div>
             <div class="container">
                 <div class="row g-xl-7 justify-content-center">
-                <div class="card-body border-top">
-                                    <div class="row">
-                                        <div class="col-12" id="map"></div>
-                                    </div>
-                             <script>
-                                var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                                });
-                                var map = L.map('map', {
-                                    center: [<?php echo $DataLongLat[0]['latitude']; ?>, <?php echo $DataLongLat[0]['longitude']; ?>],
-                                    zoom:  10,
-                                    layers: [osm],
-                                    minZoom:  5,
-                                    maxZoom:  15,
-                                });
-                                <?php foreach ($DataLongLat as $location) : ?>
-                                    var nama_kost = "<?php echo $location['nama_kost']; ?>";
-                                    var datLongLat = [<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>];
-                                    var marker = L.marker(datLongLat).addTo(map)
-                                        .bindPopup(nama_kost)
-                                        .openPopup();
-                                <?php endforeach; ?>
-                                var searchControl = L.esri.Geocoding.geosearch().addTo(map);
-                                var results = L.layerGroup().addTo(map);
+                    <div class="card-body border-top">
+                        <div class="row">
+                            <div class="col-12" id="map"></div>
+                        </div>
+                        <script>
+                            var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            });
 
-                                searchControl.on('results', function(data) {
-                                    results.clearLayers();
-                                    var firstResult = data.results[0];
-                                    var latlng = L.latLng(firstResult.latlng.lat, firstResult.latlng.lng);
-                                    marker.setLatLng(latlng);
-                                    map.setView(latlng,  13);
-                                });
+                            var map = L.map('map', {
+                                center: [<?php echo $DataLongLat[0]['latitude']; ?>, <?php echo $DataLongLat[0]['longitude']; ?>],
+                                zoom: 10,
+                                layers: [osm],
+                                minZoom: 5,
+                                maxZoom: 15,
+                            });
+                            <?php foreach ($DataLongLat as $location) : ?>
+                                var nama_kost = "<?php echo $location['nama_kost']; ?>";
+                                var datLongLat = [<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>];
+                                var marker = L.marker(datLongLat).addTo(map)
+                                    .bindPopup(nama_kost)
+                                    .openPopup();
+                            <?php endforeach; ?>
+                            var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+                            var results = L.layerGroup().addTo(map);
+
+                            searchControl.on('results', function(data) {
+                                results.clearLayers();
+                                var firstResult = data.results[0];
+                                var latlng = L.latLng(firstResult.latlng.lat, firstResult.latlng.lng);
+                                marker.setLatLng(latlng);
+                                map.setView(latlng, 13);
+                            });
                         </script>
+                    </div>
                 </div>
-            </div>
         </section>
 
     </main>

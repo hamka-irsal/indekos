@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-	<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" />
-	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-	<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
-	<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js"></script>
 <header class="header-sticky header-absolute">
     <nav class="navbar navbar-expand-xl">
         <div class="container">
@@ -12,7 +12,7 @@
 
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav navbar-nav-scroll dropdown-hover mx-auto">
-                    <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="index.php">Home</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="rekomendasi.php">Rekomendasi</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="cari_kost.php">Cari Kost</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="maps.php">Maps</a> </li>
