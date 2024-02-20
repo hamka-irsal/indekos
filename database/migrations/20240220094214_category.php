@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class Recomendations extends AbstractMigration
+final class Category extends AbstractMigration
 {
     /**
      * Change Method.
@@ -19,12 +19,10 @@ final class Recomendations extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('recomendations');
+        $table = $this->table('category');
         $table->addColumn('kost_id', 'integer');
-        $table->addColumn('rating', 'integer');
-        $table->addColumn('nama', 'string');
-        $table->addColumn('email', 'string', ['null' => true]);
-        $table->addColumn('ulasan', 'text');
+        $table->addColumn('category', 'string');
+        $table->addColumn('persent', 'integer');
         $table->addColumn('updated_at', 'datetime', ['null' => true]);
         $table->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP']);
         $table->create();

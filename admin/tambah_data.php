@@ -81,7 +81,44 @@
                                         <input name="longitude" class="form-control" type="text" placeholder="109.2550945" required />
                                     </div>
                                 </div>
-
+                                <div class="page-title d-flex mb-2">
+                                    <div>
+                                        <h1 style="font-weight:600; color: black; font-size: 15px; margin: 0px">Tambah Kategori Anda.</h1>
+                                        <div class="form-group pt-2 mx-3">
+                                            <div class="form-check mb-2">
+                                                <input name="kuliah" class="form-check-input" type="checkbox" value="kuliah" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Kuliah
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    <input name="persentKuliah" type="number" class="form-control" placeholder="0" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pt-2 mx-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="kerja" value="kerja" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    kerja
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    <input name="persentKerja" type="number" class="form-control" placeholder="0" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pt-2 mx-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="pasutri" value="pasutri" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    pasutri
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    <input name="persentPasutri" type="number" class="form-control" placeholder="0" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group" style="margin-bottom: 20px;">
                                     <label class="col-sm-2 col-sm-4 control-label"></label>
                                     <div class="col-sm-8">
@@ -160,6 +197,32 @@
 
         </div>
     </div>
+    <script>
+$(document).ready(function() {
+    // Mengatur event handler untuk checkbox
+    $('.form-check-input').change(function() {
+        // Mendapatkan elemen input yang sesuai dengan checkbox yang dicentang
+        var pasutri = $(this).closest('.form-check').find('input[name="persentPasutri"]');
+        var kuliah = $(this).closest('.form-check').find('input[name="persentKuliah"]');
+        var kerja = $(this).closest('.form-check').find('input[name="persentKerja"]');
+        
+        // Jika checkbox dicentang, aktifkan input
+        if ($(this).is(':checked')) {
+            pasutri.prop('disabled', false);
+            kuliah.prop('disabled', false);
+            kerja.prop('disabled', false);
+        } else {
+            // Jika checkbox tidak dicentang, nonaktifkan input
+            pasutri.prop('disabled', true);
+            kuliah.prop('disabled', true);
+            kerja.prop('disabled', true);
+        }
+    });
+
+    // Mengatur inputan awal berdasarkan status checkbox
+    $('.form-check-input').trigger('change');
+});
+</script>
 </body>
 
 </html>

@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result == 1) {
         $_SESSION["login"] = true;
         $_SESSION["id"] = $login->idUser();
-        header("Location: admin/index.php");
+        header("Location: admin");
     } elseif ($result == 10) {
         echo
         "<script> alert('Password Salah!!'); </script>";
