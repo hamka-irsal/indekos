@@ -16,6 +16,19 @@ if (isset($_GET['limit']) && isset($_GET['start'])) {
                 GROUP BY kost_id
             ) r ON k.id = r.kost_id
             ORDER BY r.max_rating DESC LIMIT $start";
+
+    if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+
+        $query .= " INNER JOIN (
+                SELECT kost_id
+                FROM category
+                WHERE category='$category'
+                GROUP BY kost_id
+            ) c ON k.id = c.kost_id";
+    }
+
+    $query .= " ORDER BY r.max_rating DESC";
 }
 
 $result = mysqli_query($koneksi, $query);

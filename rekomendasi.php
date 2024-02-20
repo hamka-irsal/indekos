@@ -5,14 +5,27 @@ require_once './function/rating.php';
 require_once './function/helpers.php';
 
 $koneksi = new Connection();
+$category = null;
+
 $query = "SELECT k.*
 FROM kost k
 INNER JOIN (
     SELECT kost_id, MAX(rating) AS max_rating
     FROM recomendations
     GROUP BY kost_id
-) r ON k.id = r.kost_id
-ORDER BY r.max_rating DESC";
+) r ON k.id = r.kost_id";
+
+if (isset($_GET['category'])) {
+    $category = $_GET['category'];
+    $query .= " INNER JOIN (
+        SELECT kost_id
+        FROM category
+        WHERE category='$category'
+        GROUP BY kost_id
+    ) c ON k.id = c.kost_id";
+}
+
+$query .= " ORDER BY r.max_rating DESC";
 
 $result = mysqli_query($koneksi->conn, $query);
 
@@ -29,7 +42,7 @@ $result = mysqli_query($koneksi->conn, $query);
     <main>
         <section class="pt-8">
             <div class="container">
-                <div class="inner-container text-center mb-2">
+                <div class="inner-container text-center mb-3">
                     <h1 class="mb-0 lh-base position-relative">
                         <span class="position-absolute top-0 start-0 mt-n5 ms-n5 d-none d-sm-block">
                             <svg class="fill-primary" width="63.6px" height="93.3px" viewBox="0 0 63.6 93.3" style="enable-background:new 0 0 63.6 93.3;" xml:space="preserve">
@@ -43,6 +56,11 @@ $result = mysqli_query($koneksi->conn, $query);
                         Rekomendasi Indekost, Untuk Kamu
                     </h1>
                 </div>
+            </div>
+            <div class="d-flex flex-row gap-3 justify-content-center">
+                <a href="rekomendasi.php?category=kerja" class="btn btn-primary">Kategori Kerja</a>
+                <a href="rekomendasi.php?category=kuliah" class="btn btn-primary">Kategori Kuliah</a>
+                <a href="rekomendasi.php?category=pasutri" class="btn btn-primary">Kategori Pasutri</a>
             </div>
         </section>
 
@@ -152,6 +170,7 @@ $result = mysqli_query($koneksi->conn, $query);
                     data: {
                         limit: limit,
                         start: start,
+                        category: <?= $category ?>
                     },
                     success: function(data) {
                         $('#output').html(data);
