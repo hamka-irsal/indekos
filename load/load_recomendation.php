@@ -16,6 +16,22 @@ if (isset($_GET['limit']) && isset($_GET['start'])) {
                 GROUP BY kost_id
             ) r ON k.id = r.kost_id
             ORDER BY r.max_rating DESC LIMIT $start";
+
+    if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+
+        if (isset($_GET['category'])) {
+            $category = $_GET['category'];
+            $query .= " WHERE EXISTS (
+                SELECT 1
+                FROM category c
+                WHERE c.kost_id = k.id
+                AND c.category = '$category'
+            )";
+        }
+    }
+
+    $query .= " ORDER BY r.max_rating DESC";
 }
 
 $result = mysqli_query($koneksi, $query);
