@@ -46,8 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($check['email'])) {
             echo "<script>alert('Email telah dipakai coba dengan email lain!'); window.location = 'detail_kost.php?id=$id'</script>";
         } else {
-            mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
-            header("location:detail_kost.php?id=$id");
+            if ($email != "" && $ulasan != "" && $nama != "") {
+                mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
+                header("location:detail_kost.php?id=$id");
+            } else {
+                echo "<script>alert('Tidak Boleh Kosong!'); window.location = 'detail_kost.php?id=$id'</script>";
+            }
         }
     }
 }
