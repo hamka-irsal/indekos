@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ulasan = $_POST['ulasan'];
     $rating = $_POST['rating'];
 
-    $check = mysqli_query($koneksi, "select * from recomendations where email='$email'");
+    $check = mysqli_query($koneksi, "select * from recomendations where email='$email' and kost_id='$id'");
     $check = mysqli_fetch_assoc($check);
 
     if (isset($check['email'])) {
