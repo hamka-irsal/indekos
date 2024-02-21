@@ -12,6 +12,37 @@ $harga = $_POST['harga'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
+$idC = $_POST['id'];
+$kerja = isset($_POST['kerja']) ? $_POST['kerja'] : null;
+$pasutri = isset($_POST['pasutri']) ? $_POST['pasutri'] : null;
+$kuliah = isset($_POST['kuliah']) ? $_POST['kuliah'] : null;
+
+$persentKuliah = isset($_POST['persentkuliah']) ? $_POST['persentkuliah'] : null;
+$persentKerja = isset($_POST['persentkerja']) ? $_POST['persentkerja'] : null;
+$persentPasutri = isset($_POST['persentpasutri']) ? $_POST['persentpasutri'] : null;
+
+$dataCategory = [];
+if (isset($kerja) && isset($persentKerja)) {
+    $dataCategory[] = [
+        "category" => $kerja,
+        "persent" => $persentKerja,
+    ];
+}
+
+if (isset($kuliah) && isset($persentKuliah)) {
+    $dataCategory[] = [
+        "category" => $kuliah,
+        "persent" => $persentKuliah,
+    ];
+}
+
+if (isset($pasutri) && isset($persentPasutri)) {
+    $dataCategory[] = [
+        "category" => $pasutri,
+        "persent" => $persentPasutri,
+    ];
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($gambar)) {
@@ -25,6 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 if (move_uploaded_file($gambar["tmp_name"], "upload/" . $image)) {
                     mysqli_query($koneksi, "update kost set nama_kost='$nama', alamat='$alamat', deskripsi='$deskripsi', harga='$harga', latitude='$latitude', longitude='$longitude', image='$image' where id='$id'");
+
+                    foreach ($dataCategory as $data) {
+                        $category = $data['category'];
+                        $persent = $data['persent'];
+
+                        mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$idC'");
+                    }
+
                     header("location:tampil_data.php");
                 } else {
                     echo "File is not uploaded";
@@ -35,6 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         mysqli_query($koneksi, "update kost set nama_kost='$nama', alamat='$alamat', deskripsi='$deskripsi', harga='$harga', latitude='$latitude', longitude='$longitude' where id='$id'");
+
+        foreach ($dataCategory as $data) {
+            $category = $data['category'];
+            $persent = $data['persent'];
+
+            mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$idC'");
+        }
+
+
         header("location:tampil_data.php");
     }
 } else {

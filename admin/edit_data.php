@@ -34,9 +34,16 @@
                             include '../koneksi.php';
                             $id = $_GET['id'];
                             $query = mysqli_query($koneksi, "select * from kost where id='$id'");
-                            $data  = mysqli_fetch_array($query);
-                            ?>
+                            $queryC = mysqli_query($koneksi, "SELECT * FROM category where kost_id='$id'");
 
+                            $dataC = [];
+                            while ($row = mysqli_fetch_assoc($queryC)) {
+                                $dataC[] = $row;
+                            }
+                            $data  = mysqli_fetch_array($query);
+
+                            echo "<script>console.log(" . json_encode(print_r($dataC, true)) . ")</script>";
+                            ?>
                             <div class="panel-body">
                                 <form class="form-horizontal style-form" style="margin-top: 20px;" action="edit_aksi.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
 
@@ -94,6 +101,30 @@
                                             <input name="longitude" class="form-control" id="longitude" type="text" value="<?php echo $data['longitude']; ?>" required />
                                         </div>
                                     </div>
+                                    <?php foreach ($dataC as $row) : ?>
+                                        <div class="form-group d-none">
+                                            <label class="col-lg-6 col-12 control-label">ID Category</label>
+                                            <div class="col-lg-6 col-12">
+                                                <input name="id" type="text" id="id" class="form-control" value="<?php echo $row['id']; ?>" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="page-title d-flex mb-2">
+                                            <div>
+                                                <h1 style="font-weight:600; color: black; font-size: 15px; margin: 0px">Tambah Kategori Anda.</h1>
+                                                <div class="form-group pt-2 mx-3">
+                                                    <div class="form-check mb-2">
+                                                        <input name="<?php echo $row['category']; ?>" class="form-check-input" type="checkbox" value="<?php echo $row['category']; ?>" id="flexCheckDefault<?php echo $row['id']; ?>" <?php  echo ($row['category'] == 'kerja' || $row['category'] == 'kuliah' || $row['category'] == 'pasutri') ? 'checked' : '';?>>
+                                                        <label class="form-check-label" for="flexCheckDefault<?php echo $row['id']; ?>">
+                                                            <?php echo ucfirst($row['category']); ?>
+                                                        </label>
+                                                        <div class="col-sm-6">
+                                                            <input name="persent<?php echo ucfirst($row['category']); ?>" type="number" class="form-control" value="<?php echo $row['persent']; ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
                                     <div class="form-group" style="margin-bottom: 20px;">
                                         <label class="col-lg-6 col-12 control-label"></label>
                                         <div class="col-lg-6 col-12">
@@ -181,6 +212,32 @@
 
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Mengatur event handler untuk checkbox
+            $('.form-check-input').change(function() {
+                // Mendapatkan elemen input yang sesuai dengan checkbox yang dicentang
+                var pasutri = $(this).closest('.form-check').find('input[name="persentPasutri"]');
+                var kuliah = $(this).closest('.form-check').find('input[name="persentKuliah"]');
+                var kerja = $(this).closest('.form-check').find('input[name="persentKerja"]');
+
+                // Jika checkbox dicentang, aktifkan input
+                if ($(this).is(':checked')) {
+                    pasutri.prop('disabled', false);
+                    kuliah.prop('disabled', false);
+                    kerja.prop('disabled', false);
+                } else {
+                    // Jika checkbox tidak dicentang, nonaktifkan input
+                    pasutri.prop('disabled', true);
+                    kuliah.prop('disabled', true);
+                    kerja.prop('disabled', true);
+                }
+            });
+
+            // Mengatur inputan awal berdasarkan status checkbox
+            $('.form-check-input').trigger('change');
+        });
+    </script>
 </body>
 
 </html>

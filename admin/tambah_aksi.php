@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         mysqli_query($koneksi, "insert into kost (nama_kost,alamat,deskripsi,harga,latitude,longitude) values('$nama','$alamat','$deskripsi','$harga_tiket','$latitude','$longitude')");
-        
+
         $lastData = mysqli_query($koneksi, "SELECT * FROM `kost` ORDER BY id DESC LIMIT 1");
         $lastData = mysqli_fetch_assoc($lastData);
         
