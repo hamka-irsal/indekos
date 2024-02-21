@@ -20,12 +20,15 @@ if (isset($_GET['limit']) && isset($_GET['start'])) {
     if (isset($_GET['category'])) {
         $category = $_GET['category'];
 
-        $query .= " INNER JOIN (
-                SELECT kost_id
-                FROM category
-                WHERE category='$category'
-                GROUP BY kost_id
-            ) c ON k.id = c.kost_id";
+        if (isset($_GET['category'])) {
+            $category = $_GET['category'];
+            $query .= " WHERE EXISTS (
+                SELECT 1
+                FROM category c
+                WHERE c.kost_id = k.id
+                AND c.category = '$category'
+            )";
+        }
     }
 
     $query .= " ORDER BY r.max_rating DESC";

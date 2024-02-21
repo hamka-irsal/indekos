@@ -10,24 +10,32 @@ $category = null;
 $query = "SELECT k.*
 FROM kost k
 INNER JOIN (
-    SELECT kost_id, MAX(rating) AS max_rating
-    FROM recomendations
-    GROUP BY kost_id
+    SELECT r.kost_id, MAX(r.rating) AS max_rating
+    FROM recomendations r
+    GROUP BY r.kost_id
 ) r ON k.id = r.kost_id";
 
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
-    $query .= " INNER JOIN (
-        SELECT kost_id
-        FROM category
-        WHERE category='$category'
-        GROUP BY kost_id
-    ) c ON k.id = c.kost_id";
+    $query .= " WHERE EXISTS (
+        SELECT 1
+        FROM category c
+        WHERE c.kost_id = k.id
+        AND c.category = '$category'
+    )";
 }
 
 $query .= " ORDER BY r.max_rating DESC";
 
 $result = mysqli_query($koneksi->conn, $query);
+
+function getCategory($kostId, $koneksi)
+{
+    $query = "SELECT * FROM category WHERE kost_id='$kostId'";
+    $category = mysqli_query($koneksi, $query);
+
+    return $category;
+}
 
 ?>
 
@@ -79,6 +87,8 @@ $result = mysqli_query($koneksi->conn, $query);
                             $avarageRating =  $rating['avarage'];
                             $avarageFloor = $rating['floor'];
                             $totalRating = $rating['total'];
+
+                            $category = getCategory($data['id'], $koneksi->conn);
                             ?>
 
                             <article class="card card-hover-shadow border p-3 mb-4">
@@ -95,7 +105,13 @@ $result = mysqli_query($koneksi->conn, $query);
                                             <div><span class="badge text-bg-dark mb-3">Disewakan</span></div>
                                             <h5 class="card-title mb-2"><a href="#"><?= $data['nama_kost'] ?></a></h5>
                                             <h6 class="card-title mb-2"><a href="#"><?= Helpers::money_format_idr($data['harga']) ?></a></h6>
-                                            <p class="small mb-2"><?= $data['alamat'] ?> 📌</p>
+                                            <p class="small"><?= $data['alamat'] ?> 📌</p>
+
+                                            <div class="d-flex gap-2">
+                                                <?php while ($cate = mysqli_fetch_array($category)) : ?>
+                                                    <button class="btn btn-sm btn-primary"><?= $cate['category'] ?></button>
+                                                <?php endwhile ?>
+                                            </div>
 
                                             <div class="d-flex align-items-center flex-wrap mb-2">
                                                 <ul class="list-inline mb-0">

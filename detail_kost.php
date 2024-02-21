@@ -49,6 +49,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location:detail_kost.php?id=$id");
     }
 }
+
+function getCategory($kostId, $koneksi)
+{
+    $query = "SELECT * FROM category WHERE kost_id='$kostId'";
+    $category = mysqli_query($koneksi, $query);
+
+    return $category;
+}
+
+if (isset($_GET['category'])) {
+    $category = $_GET['category'];
+    $query = "SELECT * FROM category WHERE category='$category'";
+    $category = mysqli_query($koneksi->conn, $query);
+    $dataCategory =  mysqli_fetch_assoc($category);
+    $persent = $dataCategory['persent'];
+}
+
+$category = getCategory($id, $koneksi->conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +138,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-7 ps-md-6">
                         <h1 class="h2 mb-4"><?= $kost['nama_kost'] ?></h1>
                         <h5 class="h4"><?= $kost['alamat'] ?> 📌</h5>
-                        <h6 class="h6 mb-4"><?= Helpers::money_format_idr($kost['harga']) ?></h6>
+
+                        <?php if (!isset($persent)) : ?>
+                            <h6 class="h6 mb-4"><?= Helpers::money_format_idr($kost['harga']) ?></h6>
+                        <?php else : ?>
+                            <h6 class="h6 mb-4"><?= Helpers::money_format_idr($kost['harga'] - ($persent / 100 * $kost['harga'])) ?></h6>
+                        <?php endif ?>
+
+                        <div class="d-flex gap-2 mb-3">
+                            <?php while ($cate = mysqli_fetch_array($category)) : ?>
+                                <a href="detail_kost.php?id=<?= $id ?>&category=<?= $cate['category'] ?>" class="btn btn-sm <?php echo ($cate['category'] == $dataCategory['category']) ? 'btn-primary' : 'btn-outline-primary'; ?>"><?= $cate['category'] ?></a>
+                            <?php endwhile ?>
+
+                            <?php if (isset($dataCategory['category'])) : ?>
+                                <a class="btn btn-sm btn-outline-primary" href="detail_kost.php?id=<?= $id ?>">Harga Awal</a>
+                            <?php endif ?>
+                        </div>
 
                         <div class="d-flex align-items-center flex-wrap mb-4">
                             <ul class="list-inline mb-0">
