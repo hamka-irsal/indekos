@@ -39,14 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ulasan = $_POST['ulasan'];
     $rating = $_POST['rating'];
 
-    $check = mysqli_query($koneksi, "select * from recomendations where email='$email' and kost_id='$id'");
-    $check = mysqli_fetch_assoc($check);
+    if (isset($nama) && isset($email) && isset($ulasan) && isset($rating)) {
+        $check = mysqli_query($koneksi, "select * from recomendations where email='$email' and kost_id='$id'");
+        $check = mysqli_fetch_assoc($check);
 
-    if (isset($check['email'])) {
-        echo "<script>alert('Email telah dipakai coba dengan email lain!'); window.location = 'detail_kost.php?id=$id'</script>";
-    } else {
-        mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
-        header("location:detail_kost.php?id=$id");
+        if (isset($check['email'])) {
+            echo "<script>alert('Email telah dipakai coba dengan email lain!'); window.location = 'detail_kost.php?id=$id'</script>";
+        } else {
+            mysqli_query($koneksi, "insert into recomendations (nama,email,ulasan,rating, kost_id) values('$nama','$email','$ulasan','$rating','$id')");
+            header("location:detail_kost.php?id=$id");
+        }
     }
 }
 
