@@ -13,13 +13,13 @@ $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
 $idC = $_POST['id'];
-$kerja = isset($_POST['kerja']) ? $_POST['kerja'] : null;
-$pasutri = isset($_POST['pasutri']) ? $_POST['pasutri'] : null;
-$kuliah = isset($_POST['kuliah']) ? $_POST['kuliah'] : null;
+$kerja = $_POST['Kerja'];
+$pasutri = $_POST['Pasutri'];
+$kuliah = $_POST['Kuliah'];
 
-$persentKuliah = isset($_POST['persentkuliah']) ? $_POST['persentkuliah'] : null;
-$persentKerja = isset($_POST['persentkerja']) ? $_POST['persentkerja'] : null;
-$persentPasutri = isset($_POST['persentpasutri']) ? $_POST['persentpasutri'] : null;
+$persentKuliah = $_POST['persentkuliah'];
+$persentKerja = $_POST['persentkerja'];
+$persentPasutri = $_POST['persentPasutri'];
 
 $dataCategory = [];
 if (isset($kerja) && isset($persentKerja)) {

@@ -113,9 +113,9 @@
                                                 <h1 style="font-weight:600; color: black; font-size: 15px; margin: 0px">Tambah Kategori Anda.</h1>
                                                 <div class="form-group pt-2 mx-3">
                                                     <div class="form-check mb-2">
-                                                        <input name="<?php echo $row['category']; ?>" class="form-check-input" type="checkbox" value="<?php echo $row['category']; ?>" id="flexCheckDefault<?php echo $row['id']; ?>" <?php  echo ($row['category'] == 'kerja' || $row['category'] == 'kuliah' || $row['category'] == 'pasutri') ? 'checked' : '';?>>
+                                                        <input name="<?php echo ucfirst($row['category']); ?>" class="form-check-input" type="checkbox" value="<?php echo $row['category']; ?>" id="flexCheckDefault" <?php  echo ($row['category'] == 'kerja' || $row['category'] == 'kuliah' || $row['category'] == 'pasutri') ? 'checked' : '';?>>
                                                         <label class="form-check-label" for="flexCheckDefault<?php echo $row['id']; ?>">
-                                                            <?php echo ucfirst($row['category']); ?>
+                                                        <?php echo ucfirst($row['category']); ?>
                                                         </label>
                                                         <div class="col-sm-6">
                                                             <input name="persent<?php echo ucfirst($row['category']); ?>" type="number" class="form-control" value="<?php echo $row['persent']; ?>" required />
