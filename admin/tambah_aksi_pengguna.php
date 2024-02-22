@@ -9,6 +9,8 @@ $email = $_POST['email'];
 $avatar = $_FILES['avatar'];
 $password = $_POST['password'];
 
+$password = password_hash($password, PASSWORD_DEFAULT);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($avatar)) {
@@ -21,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo $image . " is already exists.";
             } else {
                 if (move_uploaded_file($avatar["tmp_name"], "upload/" . $image)) {
-                    mysqli_query($koneksi, "insert into users (nama,username, password, email, avatar) values('$nama','$username','$password', '$email', '$image')");
+                    mysqli_query($koneksi, "insert into users (nama,username, password, email, avatar, roles) values('$nama','$username','$password', '$email', '$image','admin')");
                     header("location:tampil_data_pengguna.php");
                 } else {
                     echo "File is not uploaded";
@@ -31,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: There was a problem uploading your file. Please try again.";
         }
     } else {
-        mysqli_query($koneksi, "insert into users (nama,username, password, email) values('$nama','$username','$password', $email)");
+        mysqli_query($koneksi, "insert into users (nama,username, password, email, roles) values('$nama','$username','$password', '$email','admin')");
         header("location:tampil_data_pengguna.php");
     }
 } else {

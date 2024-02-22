@@ -5,7 +5,7 @@ require './admin/function.php';
 $query = "SELECT * FROM kost ORDER BY id DESC LIMIT 6";
 $result = mysqli_query($koneksi, $query);
 
-if (!empty($_SESSION["id"])) {
+if (!empty($_SESSION["id_user"])) {
     header("Location: index.php");
 }
 
@@ -17,11 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result == 1) {
 
-        $_SESSION["login"] = true;
-        $_SESSION["id"] = $login->idUser();
+        $_SESSION["login_user"] = true;
+        $_SESSION["id_user"] = $login->idUser();
         $_SESSION["roles"] = $login->roles();
-
-        header("Location: admin");
+        $_SESSION['email_user'] = $login->email();
+        $_SESSION['name_user'] = $login->name();
+        echo "<script>alert('Anda berhasil login!'); window.location.href = 'index.php'</script>";
     } elseif ($result == 10) {
         echo
         "<script> alert('Password Salah!!'); </script>";
@@ -81,10 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <a href="index.php"><img width="350px" src="admin/img/logo_indekost.svg" alt="logo"></a>
                         </div>
 
-                        <h2 class="mb-0">Selamat datang</h2>
+                        <h2 class="mb-0">User Login</h2>
                         <p class="mb-0">Selamat datang, silah kan isi data admin</p>
 
-                        <form action="login.php" method="post" class="mt-4" autocomplete="off">
+                        <form action="user_login.php" method="post" class="mt-4" autocomplete="off">
                             <div class="input-floating-label form-floating mb-4">
                                 <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Email address</label>

@@ -1,4 +1,5 @@
 <?php
+
 require 'koneksi.php';
 require './admin/function.php';
 
@@ -9,25 +10,18 @@ if (!empty($_SESSION["id"])) {
     header("Location: index.php");
 }
 
-$login = new Login();
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $result = $login->login($_POST["email"], $_POST["password"]);
 
+    $nama = $_POST['nama_pengguna'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    if ($result == 1) {
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $_SESSION["login"] = true;
-        $_SESSION["id"] = $login->idUser();
-        $_SESSION["roles"] = $login->roles();
-
-        header("Location: admin");
-    } elseif ($result == 10) {
-        echo
-        "<script> alert('Password Salah!!'); </script>";
-    } elseif ($result == 100) {
-        echo
-        "<script> alert('Akun Anda Tidak Terdaftar!'); </script>";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        mysqli_query($koneksi, "insert into users (nama,username, password, email, roles) values('$nama','$username','$password', '$email','user')");
+        header("location:user_login.php");
     }
 }
 
@@ -39,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include('./layouts/base.php') ?>
 
 <body>
-
     <main>
         <div class="row g-0">
             <div class="col-lg-7 vh-100 d-none d-lg-block">
@@ -74,24 +67,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
+            <!-- Right -->
             <div class="col-sm-10 col-lg-5 d-flex m-auto vh-100">
                 <div class="row w-100 m-auto">
-                    <div class="col-sm-10 my-5 m-auto">
+                    <div class="col-lg-10 my-5 m-auto">
+
                         <div class="row text-center mb-5">
                             <a href="index.php"><img width="350px" src="admin/img/logo_indekost.svg" alt="logo"></a>
                         </div>
 
-                        <h2 class="mb-0">Selamat datang</h2>
-                        <p class="mb-0">Selamat datang, silah kan isi data admin</p>
+                        <h2 class="mb-0">Daftar Sekarang</h2>
+                        <p class="mb-0">Daftar untuk login!</p>
 
-                        <form action="login.php" method="post" class="mt-4" autocomplete="off">
+                        <form action="" method="post" class="mt-4">
                             <div class="input-floating-label form-floating mb-4">
-                                <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Email address</label>
                             </div>
 
-                            <div class="input-floating-label form-floating mb-4 position-relative">
-                                <input name="password" type="password" class="form-control fakepassword pe-6" id="psw-input" placeholder="Enter your password">
+                            <div class="input-floating-label form-floating position-relative mb-4">
+                                <input type="text" name="nama_pengguna" class="form-control fakepassword pe-6" id="nama_pengguna" placeholder="Nama Lengkap">
+                                <label for="floatingInput">Nama Lengkap</label>
+                            </div>
+
+                            <div class="input-floating-label form-floating position-relative mb-4">
+                                <input type="text" name="username" class="form-control fakepassword pe-6" id="username" placeholder="Username">
+                                <label for="floatingInput">Username</label>
+                            </div>
+
+                            <div class="input-floating-label form-floating position-relative mb-4">
+                                <input type="password" name="password" class="form-control fakepassword pe-6" id="passwrod" placeholder="Enter your password">
                                 <label for="floatingInput">Password</label>
                                 <span class="position-absolute top-50 end-0 translate-middle-y p-0 me-2">
                                     <i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
@@ -100,27 +105,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="align-items-center mt-0">
                                 <div class="d-grid">
-                                    <button class="btn btn-dark mb-0" type="submit">Masuk</button>
+                                    <button class="btn btn-dark mb-0" type="submit">Daftar</button>
                                 </div>
                             </div>
                         </form>
+
+                        <div class="mt-4 text-center">
+                            <span>Sudah daftar?<a href="user_login.php"> masuk di sini!</a></span>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Back to top -->
     <div class="back-top"></div>
 
-    <!-- Bootstrap JS -->
-    <script src="aset/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!--Vendors-->
-    <script src="aset/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/pswmeter/pswmeter.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-    <!-- Theme Functions -->
-    <script src="aset/js/functions.js"></script>
+    <script src="assets/js/functions.js"></script>
 
 </body>
 

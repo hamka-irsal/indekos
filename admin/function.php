@@ -2,7 +2,7 @@
 
 session_start();
 
-if ($_SERVER['SCRIPT_NAME'] == "/indekos/login.php") {
+if ($_SERVER['SCRIPT_NAME'] == "/indekos/login.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/register.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/user_login.php" || $_SERVER['SCRIPT_NAME'] == "/indekos/logout_user.php") {
   require_once './admin/helpers/Ryoogen.php';
   require_once './admin/helpers/HomeChart.php';
 } else {
@@ -28,6 +28,9 @@ class Connection
 class Login extends Connection
 {
   public $id;
+  public $roles;
+  public $email;
+  public $name;
   public function login($email, $password)
   {
     $result = mysqli_query($this->conn, "SELECT * FROM users WHERE email = '$email'");
@@ -36,6 +39,9 @@ class Login extends Connection
     if (mysqli_num_rows($result) > 0) {
       if (password_verify($password, $row['password'])) {
         $this->id = $row["id"];
+        $this->roles = $row['roles'];
+        $this->email = $row['email'];
+        $this->name = $row['nama'];
         return 1;
       } else {
         return 10;
@@ -48,6 +54,21 @@ class Login extends Connection
   public function idUser()
   {
     return $this->id;
+  }
+
+  public function roles()
+  {
+    return $this->roles;
+  }
+
+  public function email()
+  {
+    return $this->email;
+  }
+
+  public function name()
+  {
+    return $this->name;
   }
 }
 

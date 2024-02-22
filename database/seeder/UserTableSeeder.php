@@ -22,6 +22,7 @@ class UserTableSeeder extends AbstractSeed
                 'username' => "BintangKun",
                 'email' => 'muhbintang65@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
+                'roles' => 'admin',
                 'password' => password_hash('bintang123', PASSWORD_DEFAULT)
             ],
             [
@@ -29,6 +30,7 @@ class UserTableSeeder extends AbstractSeed
                 'username' => "FeryAdmin",
                 'email' => 'fery@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
+                'roles' => 'admin',
                 'password' => password_hash('fery123', PASSWORD_DEFAULT)
             ],
             [
@@ -36,6 +38,7 @@ class UserTableSeeder extends AbstractSeed
                 'username' => "HamkaAdmin",
                 'email' => 'hamkairsal@gmail.com',
                 'updated_at' =>  date('Y-m-d H:i:s'),
+                'roles' => 'admin',
                 'password' => password_hash('hamka123', PASSWORD_DEFAULT)
             ],
         ];

@@ -3,6 +3,8 @@ require_once './admin/config/connection.php';
 require_once './function/rating.php';
 require_once './function/helpers.php';
 
+session_start();
+
 $koneksi = new Connection();
 
 $id = $_GET['id'];
@@ -34,8 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Koneksi database mysqli gagal!!! : " . mysqli_connect_error();
     }
 
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
+    if (!isset($_SESSION['id_user']) && !isset($_SESSION['login_user']) && !isset($_SESSION['email_user'])) {
+        echo "<script>alert('Anda belum login silahkan login terlebih dahulu!'); window.location.href = 'user_login.php'</script>";
+    }
+
+    $nama =  $_SESSION['name_user'];
+    $email =  $_SESSION['email_user'];
     $ulasan = $_POST['ulasan'];
     $rating = $_POST['rating'];
 
@@ -324,8 +330,6 @@ $category = getCategory($id, $koneksi->conn);
                                     <option value="2">★★☆☆☆ (2/5)</option>
                                     <option value="1">★☆☆☆☆ (1/5)</option>
                                 </select>
-                                <input class="form-control mb-3" name="nama" id="nama" placeholder="Nama anda" type="text" />
-                                <input class="form-control mb-3" name="email" id="email" placeholder="Email Anda" type="text" />
                                 <textarea class="form-control mb-3" name="ulasan" id="ulasan" placeholder="Your review" rows="3"></textarea>
                                 <button type="submit" class="btn btn-primary mb-0">Kirim Ulasan <i class="bi fa-fw bi-arrow-right ms-2"></i></button>
                             </form>
