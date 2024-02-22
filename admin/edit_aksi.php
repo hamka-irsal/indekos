@@ -17,8 +17,8 @@ $kerja = $_POST['Kerja'];
 $pasutri = $_POST['Pasutri'];
 $kuliah = $_POST['Kuliah'];
 
-$persentKuliah = $_POST['persentkuliah'];
-$persentKerja = $_POST['persentkerja'];
+$persentKuliah = $_POST['persentKuliah'];
+$persentKerja = $_POST['persentKerja'];
 $persentPasutri = $_POST['persentPasutri'];
 
 $dataCategory = [];
