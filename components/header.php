@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER['SCRIPT_NAME'] != "/indekos/detail_kost.php") {
+if ($_SERVER['SCRIPT_NAME'] != "/detail_kost.php") {
     session_start();
 }
 
@@ -7,9 +7,9 @@ function user()
 {
 
     $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $name = "db_kost";
+    $user = "u527366907_indekos";
+    $pass = "BintangFery123$$";
+    $name = "u527366907_db_kost";
 
     $koneksi = mysqli_connect($host, $user, $pass, $name);
     if (mysqli_connect_errno()) {
@@ -53,26 +53,26 @@ if (isset($_SESSION['id_user'])) {
                     <li class="nav-item"> <a class="nav-link" href="cari_kost.php">Cari Kost</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="maps.php">Maps</a> </li>
                 </ul>
+                <ul class="nav align-items-center dropdown-hover ms-sm-2 my-2">
+                    <?php if (!isset($user['username']) && !isset($user['id'])) : ?>
+                        <li class="nav-item d-flex gap-3">
+                            <a class="btn btn-sm btn-primary mb-0" href="register.php">Daftar</a>
+                            <a class="btn btn-sm btn-outline-primary mb-0" href="user_login.php">Masuk</a>
+                        </li>
+                    <?php else : ?>
+                        <div class="d-flex gap-4">
+                            <div>
+                                <p class="mb-0"><?= $user['email'] ?></p>
+                                <small class="text-primary">Ada telah login!</small>
+                            </div>
+                            <div>
+                                <a class="btn btn-sm btn-danger mt-2" href="logout_user.php">Logout</a>
+                            </div>
+                        </div>
+                    <?php endif  ?>
+                </ul>
             </div>
             <ul class="nav align-items-center dropdown-hover ms-sm-2">
-
-                <?php if (!isset($user['username']) && !isset($user['id'])) : ?>
-                    <li class="nav-item d-none d-sm-block d-flex gap-3">
-                        <a class="btn btn-sm btn-primary mb-0" href="register.php">Daftar</a>
-                        <a class="btn btn-sm btn-outline-primary mb-0" href="user_login.php">Masuk</a>
-                    </li>
-                <?php else : ?>
-                    <div class="d-flex gap-4">
-                        <div>
-                            <p class="mb-0"><?= $user['email'] ?></p>
-                            <small class="text-primary">Ada telah login!</small>
-                        </div>
-                        <div>
-                            <a class="btn btn-sm btn-danger mt-2" href="logout_user.php">Logout</a>
-                        </div>
-                    </div>
-                <?php endif  ?>
-
                 <li class="nav-item">
                     <button class="navbar-toggler ms-sm-3 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-animation">
