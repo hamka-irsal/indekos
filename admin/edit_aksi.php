@@ -12,14 +12,16 @@ $harga = $_POST['harga'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
-$idC = $_POST['id'];
 $kerja = $_POST['Kerja'];
 $pasutri = $_POST['Pasutri'];
 $kuliah = $_POST['Kuliah'];
 
-$persentKuliah = $_POST['persentkuliah'];
-$persentKerja = $_POST['persentkerja'];
+$persentKuliah = $_POST['persentKuliah'];
+$persentKerja = $_POST['persentKerja'];
 $persentPasutri = $_POST['persentPasutri'];
+
+$query = "SELECT * FROM category WHERE kost_id='$id'";
+$result = mysqli_query($koneksi, $query);
 
 $dataCategory = [];
 if (isset($kerja) && isset($persentKerja)) {
@@ -48,8 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($gambar)) {
         $upload = Helpers::upload($gambar);
 
-        if (in_array($upload['type'], $upload['allowed'])) {
+        if (isset($upload['allowed']) && isset($upload['type']) && in_array($upload['type'], $upload['allowed'])) {
             $image = md5(time() . $upload['name']);
+
 
             if (file_exists("upload/" . $image)) {
                 echo $image . " is already exists.";
@@ -57,11 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (move_uploaded_file($gambar["tmp_name"], "upload/" . $image)) {
                     mysqli_query($koneksi, "update kost set nama_kost='$nama', alamat='$alamat', deskripsi='$deskripsi', harga='$harga', latitude='$latitude', longitude='$longitude', image='$image' where id='$id'");
 
-                    foreach ($dataCategory as $data) {
+                    while ($d = mysqli_fetch_array($result)) {
                         $category = $data['category'];
                         $persent = $data['persent'];
+                        $id = $d['id'];
 
-                        mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$idC'");
+                        mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$id'");
                     }
 
                     header("location:tampil_data.php");
@@ -75,13 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         mysqli_query($koneksi, "update kost set nama_kost='$nama', alamat='$alamat', deskripsi='$deskripsi', harga='$harga', latitude='$latitude', longitude='$longitude' where id='$id'");
 
-        foreach ($dataCategory as $data) {
-            $category = $data['category'];
-            $persent = $data['persent'];
+        while ($d = mysqli_fetch_array($result)) {
+            $category = $d['category'];
+            $persent = $d['persent'];
+            $id = $d['id'];
 
-            mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$idC'");
+            mysqli_query($koneksi, "update category set category='$category', persent='$persent' where id='$id'");
         }
-
 
         header("location:tampil_data.php");
     }
