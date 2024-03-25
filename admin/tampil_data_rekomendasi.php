@@ -10,21 +10,26 @@ if (!empty($_SESSION["id"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 <?php include "header.php"; ?>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
+
         <?php include "menu_sidebar.php"; ?>
-        <!-- Content Wrapper -->
+
         <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
             <div id="content">
-            <?php include "menu_topbar.php"; ?>
-                <!-- Begin Page Content -->
+
+                <?php include "menu_topbar.php"; ?>
+
                 <div class="container-fluid">
+
+                    <div class="page-title d-flex justify-content-between mb-2">
+                        <div>
+                            <h1 style="font-weight:600; color: black; font-size: 30px; margin: 0px">Data Rekomendasi</h1>
+                            <p>Menampilkan kumpulan data rekomendasi</p>
+                        </div>
+                    </div>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -32,23 +37,28 @@ if (!empty($_SESSION["id"])) {
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                    <?php
-                                    // Instansiasi class ViewRating
-                                    $view = new View();
-                                    // Tampilkan data rating
-                                    echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
-                                    echo "<thead><tr><th>No</th><th>Nama</th><th>Rating</th><th>Ulasan</th><th>Aksi</th></tr></thead>";
-                                    echo "<tbody>";
-                                    $view->getRating();
-
-                                    echo "</table>";
-                                    ?>
+                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 30px;">No</th>
+                                            <th>Nama</th>
+                                            <th>Rating</th>
+                                            <th>Ulasan</th>
+                                            <th class="text-center" style="width: 50px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php View::Rating(); ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <?php include "footer.php"; ?>
 
         </div>
-        <!-- End of Page Wrapper -->
+    </div>
+</body>

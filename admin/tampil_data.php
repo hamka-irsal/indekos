@@ -3,11 +3,10 @@ require 'function.php';
 include_once '../koneksi.php';
 $select = new Select();
 
-if(!empty($_SESSION["id"])){
-  $user = $select->selectUserById($_SESSION["id"]);
-}
-else{
-  header("Location: index.php");
+if (!empty($_SESSION["id"])) {
+    $user = $select->selectUserById($_SESSION["id"]);
+} else {
+    header("Location: index.php");
 }
 ?>
 
@@ -16,18 +15,26 @@ else{
 <?php include "header.php"; ?>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
+
         <?php include "menu_sidebar.php"; ?>
-        <!-- Content Wrapper -->
+
         <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
             <div id="content">
+
                 <?php include "menu_topbar.php"; ?>
 
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
+
+                    <div class="page-title d-flex justify-content-between mb-2">
+                        <div>
+                            <h1 style="font-weight:600; color: black; font-size: 30px; margin: 0px">Data Indekosta</h1>
+                            <p>Menampilkan kumpulan data indekosta</p>
+                        </div>
+                        <div class="mt-3">
+                            <a class="btn btn-primary " href="tambah_data.php">Tambah Data Indekosta</a>
+                        </div>
+                    </div>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -35,25 +42,32 @@ else{
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            <?php
-                                    // Instansiasi class ViewRating
-                                    $view = new View();
-                                    // Tampilkan data rating
-                                    echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
-                                    echo "<thead><tr><th>No</th><th>Nama Indekos</th><th>Alamat</th><th>Harga</th><th>Latitude</th><th>Longitude</th><th>Aksi</th></tr></thead>";
-                                    echo "<tbody>";
-                                    $view->getKost();
-
-                                    echo "</table>";
-                                    ?>
-
+                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px;">No</th>
+                                            <th style="width: 100px;">Gambar Indekos</th>
+                                            <th style="width: 100px;">Nama Indekos</th>
+                                            <th style="width: 100px;">Deksripsi</th>
+                                            <th style="width: auto;">Alamat</th>
+                                            <th style="width: 100px;">Harga</th>
+                                            <th style="width: 50px;">Rating</th>
+                                            <th style="width: 50px;">Ulasan</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php View::Kost(); ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <?php include "footer.php"; ?>
+
         </div>
-
-        <?php include "footer.php"; ?>
-
     </div>
-    <!-- End of Page Wrapper -->
+</body>
